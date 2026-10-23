@@ -1,0 +1,26 @@
+# Dependências
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Builds e Distribuição
+client/dist/
+dist/
+
+# Banco de dados local SQLite (é gerado e populado automaticamente ao iniciar o servidor)
+server/database.sqlite
+*.sqlite
+*.sqlite3
+*.db
+
+# Logs e Variáveis de Ambiente
+*.log
+npm-debug.log*
+.env
+.env.local
+
+# IDEs e Sistema Operacional
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
