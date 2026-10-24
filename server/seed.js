@@ -7,7 +7,8 @@ function seedDatabase() {
   // Verifica se já existem usuários cadastrados
   const userCount = db.prepare('SELECT COUNT(*) as count FROM users').get().count;
   if (userCount > 0) {
-    console.log(`Banco já contém ${userCount} usuários. Pulando seed inicial.`);
+    console.log(`Banco já contém ${userCount} usuários. Verificando acervo de conhecimento...`);
+    seedKnowledge();
     return;
   }
 
@@ -251,7 +252,179 @@ function seedDatabase() {
   insertAttendee.run(eventIds[2], userIds[4]);
 
   console.log('✓ Presenças nos eventos registradas.');
+  seedKnowledge();
   console.log('Seed concluído com sucesso!');
+}
+
+function seedKnowledge() {
+  const existingBooks = db.prepare('SELECT COUNT(*) as count FROM knowledge_books').get().count;
+  if (existingBooks > 0) {
+    console.log(`Acervo já contém ${existingBooks} livros/dossiês. Pulando seed da biblioteca.`);
+    return;
+  }
+
+  const users = db.prepare('SELECT id, name, email FROM users ORDER BY id ASC').all();
+  if (!users || users.length === 0) return;
+
+  const uAna = users.find(u => u.email.includes('ana')) || users[0];
+  const uCarlos = users.find(u => u.email.includes('carlos')) || users[1] || users[0];
+  const uMariana = users.find(u => u.email.includes('mariana')) || users[2] || users[0];
+  const uLucas = users.find(u => u.email.includes('lucas')) || users[3] || users[0];
+
+  const insertBook = db.prepare(`
+    INSERT INTO knowledge_books (title, description, category, tags, color_gradient, icon, is_collaborative, creator_id)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  const insertItem = db.prepare(`
+    INSERT INTO knowledge_items (book_id, title, description, file_type, file_url, original_name, file_size_bytes, compressed_size_bytes, external_platform, uploader_id)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  const insertMsg = db.prepare(`
+    INSERT INTO book_messages (book_id, user_id, message)
+    VALUES (?, ?, ?)
+  `);
+
+  const insertLike = db.prepare(`
+    INSERT OR IGNORE INTO book_likes (book_id, user_id) VALUES (?, ?)
+  `);
+
+  // Livro 1: Jurisprudência & Segurança Jurídica
+  const book1 = insertBook.run(
+    'Jurisprudência & Segurança Jurídica para Startups',
+    'Dossiê colaborativo com decisões consolidadas dos tribunais superiores (STF/STJ), minutas de contratos societários, regimes tributários e teses jurídicas testadas na prática.',
+    'Direito & Legislação',
+    JSON.stringify(['Jurisprudência', 'Contratos', 'Tributário', 'STF', 'Vesting']),
+    'gold',
+    'Scale',
+    1,
+    uAna.id
+  );
+  const b1Id = Number(book1.lastInsertRowid);
+
+  insertItem.run(
+    b1Id,
+    'Acórdão STF: Tributação de Software (ISS vs. ICMS) & Pareceres Aplicados',
+    'Decisão paradigmática do Supremo Tribunal Federal comentada por especialistas, acompanhada de modelo de petição administrativa para não incidência em SaaS.',
+    'pdf',
+    'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf',
+    'Acordao_STF_Software_SaaS_2026.pdf',
+    2516582, // 2.4 MB
+    629145,  // 614 KB (75% economia)
+    'upload',
+    uAna.id
+  );
+
+  insertItem.run(
+    b1Id,
+    'Aula Prática: Riscos Ocultos em Cláusulas de Vesting e Good Leaver / Bad Leaver',
+    'Gravação detalhada de 14 minutos com análise de jurisprudência trabalhista recente sobre descaracterização de vesting como remuneração salarial.',
+    'video',
+    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    'Masterclass_Vesting_Sem_Riscos.mp4',
+    18874368, // 18 MB
+    4718592,  // 4.5 MB (75% economia de banda)
+    'upload',
+    uCarlos.id
+  );
+
+  insertItem.run(
+    b1Id,
+    'Minuta Oficial: Acordo de Sócios com Cláusula Drag-Along & Tag-Along Blindada',
+    'Documento editável com todas as salvaguardas essenciais para investidores anjo e co-fundadores, prevendo mediação privada antes de litígio.',
+    'doc',
+    'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf',
+    'Minuta_Acordo_Socios_Startups_2026.docx',
+    1258291, // 1.2 MB
+    314572,  // 307 KB
+    'upload',
+    uMariana.id
+  );
+
+  insertMsg.run(b1Id, uAna.id, 'Criei este dossiê para centralizarmos tudo que aprendemos na marra com os tribunais. O acórdão que anexei salvou nossa empresa de um passivo de 400 mil reais.');
+  insertMsg.run(b1Id, uCarlos.id, 'Excelente iniciativa, Ana! Acabei de anexar o vídeo com as jurisprudências trabalhistas sobre vesting. Atenção máxima ao minuto 05:20.');
+  insertMsg.run(b1Id, uMariana.id, 'Acabei de contribuir com a minuta padrão de Acordo de Sócios que usamos na Logix. Já está calibrada com o novo Marco Legal das Startups.');
+  insertLike.run(b1Id, uAna.id);
+  insertLike.run(b1Id, uCarlos.id);
+  insertLike.run(b1Id, uMariana.id);
+  insertLike.run(b1Id, uLucas.id);
+
+  // Livro 2: Playbook de Captação & Term Sheets
+  const book2 = insertBook.run(
+    'Playbook Executivo de Captação & Term Sheets com VCs',
+    'Guia completo de rodadas de investimento (Seed e Série A): modelagem de Cap Table, termos de confidencialidade, cartas de intenção e o que nunca assinar.',
+    'Finanças & Captação',
+    JSON.stringify(['Captação', 'Term Sheet', 'Valuation', 'Venture Capital']),
+    'blue',
+    'TrendingUp',
+    1,
+    uMariana.id
+  );
+  const b2Id = Number(book2.lastInsertRowid);
+
+  insertItem.run(
+    b2Id,
+    'Checklist de Auditoria e Due Diligence Jurídico-Contábil para Séries A',
+    'Lista completa com mais de 80 itens exigidos pelas principais gestoras de venture capital da América Latina antes do desembolso de capital.',
+    'pdf',
+    'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf',
+    'Checklist_Due_Diligence_VCs.pdf',
+    1677721,
+    419430,
+    'upload',
+    uMariana.id
+  );
+
+  insertItem.run(
+    b2Id,
+    'Simulador Interativo de Cap Table e Diluição Pré/Pós-Money',
+    'Planilha analítica com fórmulas dinâmicas de conversão de mútuos conversíveis (SAFE e KISS) e impacto das opções de compra de ações para colaboradores.',
+    'link',
+    'https://docs.google.com/spreadsheets',
+    'Cap_Table_Simulator_V5.xlsx',
+    838860,
+    209715,
+    'link',
+    uLucas.id
+  );
+
+  insertMsg.run(b2Id, uMariana.id, 'Deixei o checklist que nosso comitê de auditoria utilizou. Quem estiver captando nos próximos 6 meses pode usar à vontade!');
+  insertMsg.run(b2Id, uLucas.id, 'Conectei a planilha de Cap Table com as proteções anti-diluição full ratchet e weighted average.');
+  insertLike.run(b2Id, uMariana.id);
+  insertLike.run(b2Id, uAna.id);
+
+  // Livro 3: Arquitetura de IA Generativa & Agentes
+  const book3 = insertBook.run(
+    'Arquitetura de Agentes de IA & Automação Corporativa',
+    'Dossiê com código-fonte, diagramas de arquitetura, comparativos de latência e modelos de prompts para integração de agentes de IA em operações reais de negócios.',
+    'Tecnologia & IA',
+    JSON.stringify(['IA Generativa', 'Agentes Autônomos', 'APIs', 'RAG', 'Prompt']),
+    'purple',
+    'Cpu',
+    1,
+    uLucas.id
+  );
+  const b3Id = Number(book3.lastInsertRowid);
+
+  insertItem.run(
+    b3Id,
+    'Blueprint Técnico: Arquitetura de Agentes Multi-Especialistas com Context Caching',
+    'Relatório técnico mostrando como estruturar agentes que compartilham memória de longo prazo e ferramentas sem explodir a conta de API.',
+    'pdf',
+    'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf',
+    'Blueprint_Agentes_IA_Producao.pdf',
+    3355443,
+    838860,
+    'upload',
+    uLucas.id
+  );
+
+  insertMsg.run(b3Id, uLucas.id, 'Podem subir aqui seus fluxos e arquiteturas de agentes. Se precisarem de ajuda em algum gargalo de latência, me chamem no chat deste livro.');
+  insertLike.run(b3Id, uLucas.id);
+  insertLike.run(b3Id, uCarlos.id);
+
+  console.log('✓ 3 Dossiês de Conhecimento Colaborativos semeados com sucesso!');
 }
 
 if (require.main === module) {
@@ -259,3 +432,4 @@ if (require.main === module) {
 }
 
 module.exports = seedDatabase;
+

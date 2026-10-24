@@ -10,7 +10,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 
-export default function MembersList({ onSelectTag }) {
+export default function MembersList({ onSelectTag, onSelectMember }) {
   const { user, loginAsDemo, setIsAuthModalOpen } = useAuth();
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,13 +46,13 @@ export default function MembersList({ onSelectTag }) {
         boxShadow: 'var(--shadow-md)'
       }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
-          <span className="badge badge-gold">Diretório de Fundadores</span>
+          <span className="badge badge-gold">Diretório de Fundadores & Autores</span>
         </div>
         <h1 style={{ fontSize: '2.1rem', lineHeight: 1.2 }}>
           Membros do <span className="text-gradient-gold">Empreendedores do Brasil</span>
         </h1>
         <p style={{ color: 'var(--text-muted)', fontSize: '1rem', maxWidth: '720px', marginTop: '0.4rem' }}>
-          Conheça os líderes, fundadores e tomadores de decisão que compõem o grupo. Troque experiências e construa parcerias de alto valor.
+          Conheça os líderes, fundadores e tomadores de decisão que compõem o grupo. Clique no perfil para conferir seus dossiês e materiais compartilhados.
         </p>
       </div>
 
@@ -78,8 +78,12 @@ export default function MembersList({ onSelectTag }) {
                 position: 'relative'
               }}
             >
-              {/* Foto & Dados Principais */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+              {/* Foto & Dados Principais (Clicável para ver o perfil) */}
+              <div 
+                onClick={() => onSelectMember && onSelectMember(m.id)}
+                style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', cursor: 'pointer' }}
+                title="Clique para ver perfil e acervo deste membro"
+              >
                 <img
                   src={m.avatar}
                   alt={m.name}
@@ -92,7 +96,7 @@ export default function MembersList({ onSelectTag }) {
                   }}
                 />
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <h3 style={{ fontSize: '1.05rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <h3 style={{ fontSize: '1.05rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'var(--text-main)' }}>
                     {m.name}
                   </h3>
                   <div style={{ fontSize: '0.8rem', color: 'var(--gold-light)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
@@ -117,6 +121,16 @@ export default function MembersList({ onSelectTag }) {
               }}>
                 {m.bio || 'Membro ativo na comunidade de negócios.'}
               </p>
+
+              {/* Botão de Ver Acervo do Membro */}
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm"
+                onClick={() => onSelectMember && onSelectMember(m.id)}
+                style={{ width: '100%', fontSize: '0.8rem', justifyContent: 'center' }}
+              >
+                Ver Perfil & Dossiês Compartilhados <ArrowRight size={13} />
+              </button>
 
               {/* Estatísticas de Contribuição */}
               <div style={{

@@ -73,6 +73,50 @@ db.exec(`
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(event_id, user_id)
   );
+
+  CREATE TABLE IF NOT EXISTS knowledge_books (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    category TEXT DEFAULT 'Geral',
+    tags TEXT NOT NULL DEFAULT '[]',
+    color_gradient TEXT DEFAULT 'gold',
+    icon TEXT DEFAULT 'BookOpen',
+    is_collaborative INTEGER DEFAULT 1,
+    creator_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+
+  CREATE TABLE IF NOT EXISTS knowledge_items (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id INTEGER NOT NULL REFERENCES knowledge_books(id) ON DELETE CASCADE,
+    title TEXT NOT NULL,
+    description TEXT,
+    file_type TEXT NOT NULL,
+    file_url TEXT NOT NULL,
+    original_name TEXT,
+    file_size_bytes INTEGER DEFAULT 0,
+    compressed_size_bytes INTEGER DEFAULT 0,
+    external_platform TEXT,
+    uploader_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+
+  CREATE TABLE IF NOT EXISTS book_messages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id INTEGER NOT NULL REFERENCES knowledge_books(id) ON DELETE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    message TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+
+  CREATE TABLE IF NOT EXISTS book_likes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id INTEGER NOT NULL REFERENCES knowledge_books(id) ON DELETE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(book_id, user_id)
+  );
 `);
 
 module.exports = db;

@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
 import { 
   Lightbulb, 
   Calendar, 
@@ -9,14 +7,17 @@ import {
   User, 
   ChevronDown, 
   Crown,
-  Sparkles
+  Sparkles,
+  BookOpen
 } from 'lucide-react';
 
 export default function Navbar({ 
   activeTab, 
   setActiveTab, 
   onOpenNewIdea, 
-  onOpenNewEvent 
+  onOpenNewEvent,
+  onOpenNewBook,
+  onSelectMember
 }) {
   const { user, logout, setIsAuthModalOpen, demoAccounts, loginAsDemo } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -111,6 +112,16 @@ export default function Navbar({
 
           <button
             type="button"
+            className={`btn btn-sm ${activeTab === 'library' ? 'btn-gold' : 'btn-secondary'}`}
+            onClick={() => setActiveTab('library')}
+            style={{ borderRadius: 'var(--radius-full)', padding: '0.5rem 1rem' }}
+          >
+            <BookOpen size={16} />
+            <span>Acervo & Dossiês</span>
+          </button>
+
+          <button
+            type="button"
             className={`btn btn-sm ${activeTab === 'members' ? 'btn-gold' : 'btn-secondary'}`}
             onClick={() => setActiveTab('members')}
             style={{ borderRadius: 'var(--radius-full)', padding: '0.5rem 1rem' }}
@@ -123,6 +134,17 @@ export default function Navbar({
         {/* Ações de Criação e Perfil */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           
+          {/* Botão de Novo Dossiê */}
+          <button
+            type="button"
+            className="btn btn-gold btn-sm"
+            onClick={onOpenNewBook}
+            title="Criar um novo dossiê ou livro colaborativo"
+          >
+            <BookOpen size={15} />
+            <span>+ Dossiê</span>
+          </button>
+
           {/* Botão de Nova Ideia */}
           <button
             type="button"
@@ -211,6 +233,35 @@ export default function Navbar({
                     <div style={{ fontSize: '0.75rem', color: 'var(--gold-light)', marginTop: '0.2rem' }}>
                       {user.role} @ {user.company}
                     </div>
+                  </div>
+
+                  {/* Atalho para o Perfil e Acervo do Usuário */}
+                  <div style={{ padding: '0.5rem 0.2rem 0.25rem' }}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDropdownOpen(false);
+                        if (onSelectMember && user) onSelectMember(user.id);
+                      }}
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        background: 'rgba(212, 175, 55, 0.1)',
+                        border: '1px solid var(--gold-border)',
+                        borderRadius: 'var(--radius-sm)',
+                        color: 'var(--gold-light)',
+                        padding: '0.5rem 0.65rem',
+                        fontSize: '0.78rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        transition: 'var(--transition)'
+                      }}
+                    >
+                      <BookOpen size={14} />
+                      <span>Meu Perfil & Acervo</span>
+                    </button>
                   </div>
 
                   {/* Trocar de Perfil Rápido */}

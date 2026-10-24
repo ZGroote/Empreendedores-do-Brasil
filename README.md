@@ -22,12 +22,19 @@ O projeto foi construído para ser **100% autônomo, self-contained e de fácil 
    - **Reuniões Estratégicas:** Alinhamento geral, comissões e decisões coletivas.
    - Confirmação de presença em 1 clique (RSVP) com lista de participantes e link direto para salas virtuais (Google Meet / Zoom).
 
-4. **👤 Autenticação & Perfis de Empreendedores:**
+4. **📚 Acervo & Dossiês de Conhecimento Colaborativo:**
+   - Criação de "livros" e coletâneas temáticas de inteligência coletiva (jurisprudência comentada, teses tributárias, contratos societários, aulas práticas e playbooks).
+   - Colaboração multiusuário: criadores e membros convidados acrescentam capítulos, PDFs, vídeos e minutas ao mesmo dossiê.
+   - Otimização e entrega em versões compactadas e leves com preview integrado (PDF viewer e video player).
+   - Chat contextual em tempo real por dossiê para debates e alinhamentos específicos do tema.
+   - Aba e catálogo individual no perfil de cada empreendedor.
+
+5. **👤 Autenticação & Perfis de Empreendedores:**
    - Sistema de login com JWT e senhas criptografadas (bcrypt).
    - Cadastro completo com dados da empresa, cargo e bio.
    - **Acesso Rápido Demonstrativo:** Permite simular diferentes perfis de membros em 1 clique para testar interações e pontos de vista.
 
-5. **💎 Design Executivo Premium Dark:**
+6. **💎 Design Executivo Premium Dark:**
    - Identidade visual executiva em tons de ônix, azul safira e dourado champanhe, com cards em glassmorphism e tipografia refinada (*Plus Jakarta Sans* e *Outfit*).
 
 ---

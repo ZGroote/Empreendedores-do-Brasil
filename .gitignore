@@ -13,6 +13,10 @@ server/database.sqlite
 *.sqlite3
 *.db
 
+# Arquivos de Upload dos usuários
+server/uploads/*
+!server/uploads/.gitkeep
+
 # Logs e Variáveis de Ambiente
 *.log
 npm-debug.log*

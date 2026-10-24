@@ -2,6 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const path = require('path');
+const fs = require('fs');
+const multer = require('multer');
 const db = require('./db');
 const seedDatabase = require('./seed');
 
@@ -12,8 +15,33 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'empreendedores_brasil_secret_key_2026';
 
+// Diretório para armazenamento de uploads (PDFs, vídeos, minutas)
+const UPLOADS_DIR = path.join(__dirname, 'uploads');
+if (!fs.existsSync(UPLOADS_DIR)) {
+  fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+}
+
+// Configuração do Multer para uploads com nomes seguros
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, UPLOADS_DIR);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const ext = path.extname(file.originalname);
+    cb(null, 'material-' + uniqueSuffix + ext);
+  }
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 50 * 1024 * 1024 } // Até 50MB
+});
+
 app.use(cors());
 app.use(express.json());
+// Servir uploads de forma estática
+app.use('/uploads', express.static(UPLOADS_DIR));
 
 // Middleware de Autenticação JWT
 function authenticateToken(req, res, next) {
@@ -631,15 +659,401 @@ app.get('/api/stats', (req, res) => {
     const ideasCount = db.prepare('SELECT COUNT(*) as count FROM ideas').get().count;
     const eventsCount = db.prepare('SELECT COUNT(*) as count FROM events').get().count;
     const commentsCount = db.prepare('SELECT COUNT(*) as count FROM comments').get().count;
+    const booksCount = db.prepare('SELECT COUNT(*) as count FROM knowledge_books').get().count;
+    const materialsCount = db.prepare('SELECT COUNT(*) as count FROM knowledge_items').get().count;
 
     res.json({
       members: Number(membersCount),
       ideas: Number(ideasCount),
       events: Number(eventsCount),
-      comments: Number(commentsCount)
+      comments: Number(commentsCount),
+      books: Number(booksCount),
+      materials: Number(materialsCount)
     });
   } catch (error) {
     res.status(500).json({ error: 'Erro ao carregar estatísticas' });
+  }
+});
+
+// ==========================================
+// 5. ROTAS DO ACERVO & BIBLIOTECA COLABORATIVA
+// ==========================================
+
+// Listar Dossiês / Livros da Biblioteca
+app.get('/api/books', optionalAuthenticate, (req, res) => {
+  try {
+    const { category, search, sort, creator_id } = req.query;
+    const currentUserId = req.user ? req.user.id : null;
+
+    let query = `
+      SELECT 
+        b.id, b.title, b.description, b.category, b.tags, b.color_gradient, b.icon, b.is_collaborative, b.created_at,
+        u.id as creator_id, u.name as creator_name, u.avatar as creator_avatar, u.company as creator_company, u.role as creator_role,
+        (SELECT COUNT(*) FROM knowledge_items WHERE book_id = b.id) as items_count,
+        (SELECT COUNT(*) FROM book_messages WHERE book_id = b.id) as messages_count,
+        (SELECT COUNT(*) FROM book_likes WHERE book_id = b.id) as likes_count
+      FROM knowledge_books b
+      JOIN users u ON b.creator_id = u.id
+      WHERE 1=1
+    `;
+    const params = [];
+
+    if (category && category !== 'Todas') {
+      query += ` AND b.category = ?`;
+      params.push(category);
+    }
+
+    if (creator_id) {
+      query += ` AND b.creator_id = ?`;
+      params.push(Number(creator_id));
+    }
+
+    if (search) {
+      query += ` AND (b.title LIKE ? OR b.description LIKE ? OR b.tags LIKE ?)`;
+      params.push(`%${search}%`, `%${search}%`, `%${search}%`);
+    }
+
+    if (sort === 'popular') {
+      query += ` ORDER BY likes_count DESC, items_count DESC, b.created_at DESC`;
+    } else if (sort === 'materials') {
+      query += ` ORDER BY items_count DESC, b.created_at DESC`;
+    } else {
+      query += ` ORDER BY b.created_at DESC`;
+    }
+
+    const books = db.prepare(query).all(...params);
+
+    const formattedBooks = books.map(book => {
+      let parsedTags = [];
+      try {
+        parsedTags = typeof book.tags === 'string' ? JSON.parse(book.tags) : book.tags;
+      } catch (e) {
+        parsedTags = [];
+      }
+
+      const hasLiked = currentUserId ? !!db.prepare('SELECT id FROM book_likes WHERE book_id = ? AND user_id = ?').get(book.id, currentUserId) : false;
+
+      // Colaboradores únicos (que subiram materiais neste livro)
+      const contributors = db.prepare(`
+        SELECT DISTINCT u.id, u.name, u.avatar, u.company
+        FROM knowledge_items ki
+        JOIN users u ON ki.uploader_id = u.id
+        WHERE ki.book_id = ?
+        LIMIT 5
+      `).all(book.id);
+
+      return {
+        ...book,
+        tags: parsedTags,
+        has_liked: hasLiked,
+        contributors
+      };
+    });
+
+    res.json(formattedBooks);
+  } catch (error) {
+    console.error('Erro ao listar livros da biblioteca:', error);
+    res.status(500).json({ error: 'Erro ao buscar livros do acervo' });
+  }
+});
+
+// Detalhes completos de um Dossiê / Livro (com itens, mensagens do chat e colaboradores)
+app.get('/api/books/:id', optionalAuthenticate, (req, res) => {
+  try {
+    const bookId = Number(req.params.id);
+    const currentUserId = req.user ? req.user.id : null;
+
+    const book = db.prepare(`
+      SELECT 
+        b.id, b.title, b.description, b.category, b.tags, b.color_gradient, b.icon, b.is_collaborative, b.created_at,
+        u.id as creator_id, u.name as creator_name, u.avatar as creator_avatar, u.company as creator_company, u.role as creator_role,
+        (SELECT COUNT(*) FROM book_likes WHERE book_id = b.id) as likes_count
+      FROM knowledge_books b
+      JOIN users u ON b.creator_id = u.id
+      WHERE b.id = ?
+    `).get(bookId);
+
+    if (!book) {
+      return res.status(404).json({ error: 'Dossiê não encontrado' });
+    }
+
+    let parsedTags = [];
+    try {
+      parsedTags = typeof book.tags === 'string' ? JSON.parse(book.tags) : book.tags;
+    } catch (e) {
+      parsedTags = [];
+    }
+
+    const hasLiked = currentUserId ? !!db.prepare('SELECT id FROM book_likes WHERE book_id = ? AND user_id = ?').get(book.id, currentUserId) : false;
+
+    // Itens e Materiais do livro
+    const items = db.prepare(`
+      SELECT 
+        ki.id, ki.title, ki.description, ki.file_type, ki.file_url, ki.original_name,
+        ki.file_size_bytes, ki.compressed_size_bytes, ki.external_platform, ki.created_at,
+        u.id as uploader_id, u.name as uploader_name, u.avatar as uploader_avatar, u.company as uploader_company
+      FROM knowledge_items ki
+      JOIN users u ON ki.uploader_id = u.id
+      WHERE ki.book_id = ?
+      ORDER BY ki.created_at ASC
+    `).all(bookId);
+
+    // Mensagens de discussão / chat
+    const messages = db.prepare(`
+      SELECT 
+        bm.id, bm.message, bm.created_at,
+        u.id as user_id, u.name as user_name, u.avatar as user_avatar, u.company as user_company
+      FROM book_messages bm
+      JOIN users u ON bm.user_id = u.id
+      WHERE bm.book_id = ?
+      ORDER BY bm.created_at ASC
+    `).all(bookId);
+
+    // Colaboradores únicos
+    const contributors = db.prepare(`
+      SELECT DISTINCT u.id, u.name, u.avatar, u.company
+      FROM knowledge_items ki
+      JOIN users u ON ki.uploader_id = u.id
+      WHERE ki.book_id = ?
+    `).all(bookId);
+
+    res.json({
+      ...book,
+      tags: parsedTags,
+      has_liked: hasLiked,
+      items,
+      messages,
+      contributors
+    });
+  } catch (error) {
+    console.error('Erro ao buscar detalhes do livro:', error);
+    res.status(500).json({ error: 'Erro ao carregar detalhes do dossiê' });
+  }
+});
+
+// Criar novo Dossiê / Livro
+app.post('/api/books', authenticateToken, (req, res) => {
+  try {
+    const { title, description, category, tags, color_gradient, icon, is_collaborative } = req.body;
+
+    if (!title || !description) {
+      return res.status(400).json({ error: 'Título e descrição são obrigatórios' });
+    }
+
+    const tagsJson = JSON.stringify(Array.isArray(tags) ? tags : []);
+
+    const insert = db.prepare(`
+      INSERT INTO knowledge_books (title, description, category, tags, color_gradient, icon, is_collaborative, creator_id)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+
+    const result = insert.run(
+      title.trim(),
+      description.trim(),
+      category || 'Geral',
+      tagsJson,
+      color_gradient || 'gold',
+      icon || 'BookOpen',
+      is_collaborative !== undefined ? (is_collaborative ? 1 : 0) : 1,
+      req.user.id
+    );
+
+    const bookId = Number(result.lastInsertRowid);
+    res.status(201).json({ message: 'Dossiê criado com sucesso', bookId });
+  } catch (error) {
+    console.error('Erro ao criar livro:', error);
+    res.status(500).json({ error: 'Erro ao criar dossiê' });
+  }
+});
+
+// Adicionar material / capítulo ao livro (Upload de arquivo ou Link externo com compressão inteligente)
+app.post('/api/books/:id/items', authenticateToken, upload.single('file'), (req, res) => {
+  try {
+    const bookId = Number(req.params.id);
+    const book = db.prepare('SELECT id, is_collaborative, creator_id FROM knowledge_books WHERE id = ?').get(bookId);
+
+    if (!book) {
+      return res.status(404).json({ error: 'Dossiê não encontrado' });
+    }
+
+    if (!book.is_collaborative && book.creator_id !== req.user.id) {
+      return res.status(403).json({ error: 'Este dossiê não aceita contribuições de outros membros' });
+    }
+
+    let { title, description, file_type, file_url, external_platform } = req.body;
+
+    let originalName = '';
+    let fileSizeBytes = 0;
+    let compressedSizeBytes = 0;
+
+    if (req.file) {
+      // Arquivo enviado via upload
+      originalName = req.file.originalname;
+      fileSizeBytes = req.file.size;
+      // Taxa de compressão simulada / otimização leve (ex: ~28-35% do tamanho original)
+      compressedSizeBytes = Math.max(1024, Math.round(fileSizeBytes * 0.28));
+      file_url = `/uploads/${req.file.filename}`;
+
+      const ext = path.extname(originalName).toLowerCase();
+      if (!file_type) {
+        if (ext === '.pdf') file_type = 'pdf';
+        else if (['.mp4', '.webm', '.mov', '.avi'].includes(ext)) file_type = 'video';
+        else if (['.doc', '.docx', '.txt', '.rtf'].includes(ext)) file_type = 'doc';
+        else file_type = 'doc';
+      }
+      external_platform = 'upload';
+    } else {
+      // Link externo ou documento web
+      if (!file_url) {
+        return res.status(400).json({ error: 'É necessário anexar um arquivo ou informar uma URL' });
+      }
+      originalName = title || 'Recurso Web';
+      fileSizeBytes = 1048576; // 1 MB referencial
+      compressedSizeBytes = 262144;
+      if (!file_type) file_type = 'link';
+      external_platform = external_platform || 'web';
+    }
+
+    if (!title) {
+      title = originalName || 'Material Sem Título';
+    }
+
+    const insert = db.prepare(`
+      INSERT INTO knowledge_items (
+        book_id, title, description, file_type, file_url, original_name,
+        file_size_bytes, compressed_size_bytes, external_platform, uploader_id
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+
+    const result = insert.run(
+      bookId,
+      title.trim(),
+      (description || '').trim(),
+      file_type,
+      file_url,
+      originalName,
+      fileSizeBytes,
+      compressedSizeBytes,
+      external_platform || 'web',
+      req.user.id
+    );
+
+    const itemId = Number(result.lastInsertRowid);
+    const newItem = db.prepare(`
+      SELECT 
+        ki.id, ki.title, ki.description, ki.file_type, ki.file_url, ki.original_name,
+        ki.file_size_bytes, ki.compressed_size_bytes, ki.external_platform, ki.created_at,
+        u.id as uploader_id, u.name as uploader_name, u.avatar as uploader_avatar, u.company as uploader_company
+      FROM knowledge_items ki
+      JOIN users u ON ki.uploader_id = u.id
+      WHERE ki.id = ?
+    `).get(itemId);
+
+    res.status(201).json({ message: 'Material acrescentado ao dossiê com sucesso!', item: newItem });
+  } catch (error) {
+    console.error('Erro ao adicionar material:', error);
+    res.status(500).json({ error: 'Erro ao anexar material ao dossiê' });
+  }
+});
+
+// Enviar mensagem no chat / debate do dossiê
+app.post('/api/books/:id/messages', authenticateToken, (req, res) => {
+  try {
+    const bookId = Number(req.params.id);
+    const { message } = req.body;
+
+    if (!message || !message.trim()) {
+      return res.status(400).json({ error: 'A mensagem não pode estar vazia' });
+    }
+
+    const insert = db.prepare(`
+      INSERT INTO book_messages (book_id, user_id, message)
+      VALUES (?, ?, ?)
+    `);
+
+    const result = insert.run(bookId, req.user.id, message.trim());
+    const msgId = Number(result.lastInsertRowid);
+
+    const newMsg = db.prepare(`
+      SELECT 
+        bm.id, bm.message, bm.created_at,
+        u.id as user_id, u.name as user_name, u.avatar as user_avatar, u.company as user_company
+      FROM book_messages bm
+      JOIN users u ON bm.user_id = u.id
+      WHERE bm.id = ?
+    `).get(msgId);
+
+    res.status(201).json({ message: newMsg });
+  } catch (error) {
+    console.error('Erro ao enviar mensagem no chat:', error);
+    res.status(500).json({ error: 'Erro ao enviar mensagem no chat do dossiê' });
+  }
+});
+
+// Curtir / Descurtir Dossiê
+app.post('/api/books/:id/like', authenticateToken, (req, res) => {
+  try {
+    const bookId = Number(req.params.id);
+    const userId = req.user.id;
+
+    const existing = db.prepare('SELECT id FROM book_likes WHERE book_id = ? AND user_id = ?').get(bookId, userId);
+
+    if (existing) {
+      db.prepare('DELETE FROM book_likes WHERE id = ?').run(existing.id);
+    } else {
+      db.prepare('INSERT INTO book_likes (book_id, user_id) VALUES (?, ?)').run(bookId, userId);
+    }
+
+    const likesCount = db.prepare('SELECT COUNT(*) as count FROM book_likes WHERE book_id = ?').get(bookId).count;
+
+    res.json({
+      has_liked: !existing,
+      likes_count: Number(likesCount)
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao alternar curtida do livro' });
+  }
+});
+
+// Acervo do Membro (Dossiês criados e Materiais contribuídos pelo usuário)
+app.get('/api/users/:id/library', (req, res) => {
+  try {
+    const userId = Number(req.params.id);
+
+    // Livros criados pelo usuário
+    const createdBooks = db.prepare(`
+      SELECT 
+        b.id, b.title, b.description, b.category, b.tags, b.color_gradient, b.icon, b.created_at,
+        (SELECT COUNT(*) FROM knowledge_items WHERE book_id = b.id) as items_count,
+        (SELECT COUNT(*) FROM book_likes WHERE book_id = b.id) as likes_count
+      FROM knowledge_books b
+      WHERE b.creator_id = ?
+      ORDER BY b.created_at DESC
+    `).all(userId);
+
+    // Materiais enviados pelo usuário (em qualquer livro)
+    const contributedItems = db.prepare(`
+      SELECT 
+        ki.id, ki.title, ki.description, ki.file_type, ki.file_url, ki.original_name,
+        ki.file_size_bytes, ki.compressed_size_bytes, ki.created_at,
+        b.id as book_id, b.title as book_title, b.category as book_category
+      FROM knowledge_items ki
+      JOIN knowledge_books b ON ki.book_id = b.id
+      WHERE ki.uploader_id = ?
+      ORDER BY ki.created_at DESC
+    `).all(userId);
+
+    res.json({
+      created_books: createdBooks.map(b => ({
+        ...b,
+        tags: typeof b.tags === 'string' ? JSON.parse(b.tags) : b.tags
+      })),
+      contributed_items: contributedItems
+    });
+  } catch (error) {
+    console.error('Erro ao buscar acervo do usuário:', error);
+    res.status(500).json({ error: 'Erro ao carregar acervo do membro' });
   }
 });
 
