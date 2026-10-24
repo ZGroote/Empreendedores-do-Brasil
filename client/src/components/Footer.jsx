@@ -15,7 +15,7 @@ export default function Footer({ onNavigateTab }) {
         maxWidth: '1280px',
         margin: '0 auto',
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))',
         gap: '2.5rem',
         marginBottom: '3rem'
       }}>
@@ -81,6 +81,17 @@ export default function Footer({ onNavigateTab }) {
                 onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}
               >
                 Acervo de Dossiês & Jurisprudência
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => onNavigateTab('lessons')}
+                style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: 0, fontSize: '0.88rem' }}
+                onMouseEnter={(e) => e.target.style.color = 'var(--gold-light)'}
+                onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}
+              >
+                Aulas em Vídeo
               </button>
             </li>
             <li>

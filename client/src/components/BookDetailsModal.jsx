@@ -180,7 +180,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
             items: [...(prev.items || []), data.item]
           }));
           resetItemForm();
-          setItemSuccessNotice('Material enviado e compactado com sucesso para a coletânea!');
+          setItemSuccessNotice('Material enviado! Vídeos e imagens são compactados automaticamente em segundos.');
           setTimeout(() => setItemSuccessNotice(''), 4000);
           if (onBookUpdated) onBookUpdated();
         } else {
@@ -679,10 +679,10 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {book.items.map((item, idx) => {
                   const originalSize = item.file_size_bytes || 0;
-                  const compressedSize = item.compressed_size_bytes || Math.round(originalSize * 0.28);
-                  const savingPercent = originalSize > 0 
+                  const compressedSize = item.compressed_size_bytes || originalSize;
+                  const savingPercent = originalSize > 0
                     ? Math.round(((originalSize - compressedSize) / originalSize) * 100)
-                    : 72;
+                    : 0;
 
                   return (
                     <div
@@ -718,7 +718,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                               <span style={{ fontSize: '0.72rem', textTransform: 'uppercase', fontWeight: 700, color: 'var(--text-dim)' }}>
                                 Capítulo #{idx + 1} • {item.file_type.toUpperCase()}
                               </span>
-                              <span style={{
+                              {savingPercent > 0 && <span style={{
                                 fontSize: '0.7rem',
                                 color: '#34D399',
                                 background: 'rgba(16, 185, 129, 0.1)',
@@ -727,7 +727,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                                 border: '1px solid rgba(16, 185, 129, 0.2)'
                               }}>
                                 Versão Compacta (-{savingPercent}%)
-                              </span>
+                              </span>}
                             </div>
                             <h4 style={{ fontSize: '1.02rem', lineHeight: 1.3, marginTop: '0.2rem', color: 'var(--text-main)' }}>
                               {item.title}
@@ -800,14 +800,14 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                         </div>
 
                         {/* Dados de Compactação */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                        {originalSize > 0 && <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                           <HardDrive size={12} color="var(--emerald-primary)" />
                           <span>Original: {formatBytes(originalSize)}</span>
                           <span>•</span>
                           <span style={{ color: 'var(--emerald-primary)', fontWeight: 600 }}>
                             Compactado: {formatBytes(compressedSize)}
                           </span>
-                        </div>
+                        </div>}
                       </div>
                     </div>
                   );

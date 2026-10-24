@@ -151,7 +151,7 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
               <span className="badge badge-gold">Mural de Inovações & Negócios</span>
             </div>
-            <h1 style={{ fontSize: '2.1rem', lineHeight: 1.2 }}>
+            <h1 style={{ fontSize: 'clamp(1.6rem, 5vw, 2.1rem)', lineHeight: 1.2 }}>
               Banco de Ideias dos <span className="text-gradient-gold">Empreendedores</span>
             </h1>
             <p style={{ color: 'var(--text-muted)', fontSize: '1rem', maxWidth: '720px', marginTop: '0.4rem' }}>
@@ -162,7 +162,7 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
           {/* Cards de Métricas em Tempo Real */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(160px, 100%), 1fr))',
             gap: '1rem',
             paddingTop: '0.5rem'
           }}>
@@ -346,7 +346,7 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
       ) : (
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(360px, 100%), 1fr))',
           gap: '1.5rem'
         }}>
           {ideas.map((idea) => {

@@ -25,16 +25,20 @@ O projeto foi construído para ser **100% autônomo, self-contained e de fácil 
 4. **📚 Acervo & Dossiês de Conhecimento Colaborativo:**
    - Criação de "livros" e coletâneas temáticas de inteligência coletiva (jurisprudência comentada, teses tributárias, contratos societários, aulas práticas e playbooks).
    - Colaboração multiusuário: criadores e membros convidados acrescentam capítulos, PDFs, vídeos e minutas ao mesmo dossiê.
-   - Otimização e entrega em versões compactadas e leves com preview integrado (PDF viewer e video player).
+   - Vídeos e imagens enviados são compactados de verdade no servidor (ffmpeg), com preview integrado (PDF viewer e video player).
    - Chat contextual em tempo real por dossiê para debates e alinhamentos específicos do tema.
    - Aba e catálogo individual no perfil de cada empreendedor.
 
-5. **👤 Autenticação & Perfis de Empreendedores:**
+5. **🎬 Aulas em Vídeo:**
+   - Qualquer membro envia aulas em vídeo (até 1GB) separadas por categoria (Vendas, Finanças, Jurídico, Tecnologia, Gestão, Marketing...).
+   - Cada vídeo é recomprimido automaticamente para MP4 H.264 até 720p (normalmente 70–95% menor) e começa a tocar antes de baixar inteiro.
+
+6. **👤 Autenticação & Perfis de Empreendedores:**
    - Sistema de login com JWT e senhas criptografadas (bcrypt).
    - Cadastro completo com dados da empresa, cargo e bio.
    - **Acesso Rápido Demonstrativo:** Permite simular diferentes perfis de membros em 1 clique para testar interações e pontos de vista.
 
-6. **💎 Design Executivo Premium Dark:**
+7. **💎 Design Executivo Premium Dark:**
    - Identidade visual executiva em tons de ônix, azul safira e dourado champanhe, com cards em glassmorphism e tipografia refinada (*Plus Jakarta Sans* e *Outfit*).
 
 ---
@@ -51,7 +55,8 @@ O projeto foi construído para ser **100% autônomo, self-contained e de fácil 
 ## 🚀 Como Rodar o Projeto
 
 ### Pré-requisitos
-- Node.js (v20 ou superior recomendado, compatível com Node v24).
+- Node.js (v22.5 ou superior — usa o SQLite nativo `node:sqlite`).
+- [FFmpeg](https://ffmpeg.org/download.html) no PATH para a compressão de vídeos/imagens (Windows: `winget install Gyan.FFmpeg`). Sem ele o site funciona, mas os arquivos ficam no tamanho original. Também dá para apontar o executável com a variável `FFMPEG_PATH`.
 
 ### 1. Clonar o repositório
 ```bash

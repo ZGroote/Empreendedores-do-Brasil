@@ -48,7 +48,7 @@ export default function MembersList({ onSelectTag, onSelectMember }) {
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
           <span className="badge badge-gold">Diretório de Fundadores & Autores</span>
         </div>
-        <h1 style={{ fontSize: '2.1rem', lineHeight: 1.2 }}>
+        <h1 style={{ fontSize: 'clamp(1.6rem, 5vw, 2.1rem)', lineHeight: 1.2 }}>
           Membros do <span className="text-gradient-gold">Empreendedores do Brasil</span>
         </h1>
         <p style={{ color: 'var(--text-muted)', fontSize: '1rem', maxWidth: '720px', marginTop: '0.4rem' }}>
@@ -63,7 +63,7 @@ export default function MembersList({ onSelectTag, onSelectMember }) {
       ) : (
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(320px, 100%), 1fr))',
           gap: '1.5rem'
         }}>
           {members.map((m) => (

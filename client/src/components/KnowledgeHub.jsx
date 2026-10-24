@@ -170,7 +170,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
               </span>
             </div>
             
-            <h1 style={{ fontSize: '2.3rem', lineHeight: 1.15, marginBottom: '0.8rem' }}>
+            <h1 style={{ fontSize: 'clamp(1.6rem, 5vw, 2.3rem)', lineHeight: 1.15, marginBottom: '0.8rem' }}>
               Biblioteca de <span className="text-gradient-gold">Conhecimento & Dossiês</span>
             </h1>
             
@@ -195,15 +195,6 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
                 </div>
                 <div style={{ fontSize: '0.78rem', color: 'var(--text-dim)', marginTop: '0.2rem' }}>
                   Materiais (PDFs, Vídeos, Docs)
-                </div>
-              </div>
-
-              <div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#34D399', lineHeight: 1 }}>
-                  ~72%
-                </div>
-                <div style={{ fontSize: '0.78rem', color: 'var(--text-dim)', marginTop: '0.2rem' }}>
-                  Economia de Dados (Leveza)
                 </div>
               </div>
 
@@ -340,7 +331,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
       ) : (
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(370px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(370px, 100%), 1fr))',
           gap: '1.75rem'
         }}>
           {books.map((book) => {

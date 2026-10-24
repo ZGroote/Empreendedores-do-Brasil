@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { 
   BookOpen, 
@@ -23,14 +23,19 @@ export default function HomeView({
   onOpenAuth 
 }) {
   const { user } = useAuth();
+  const [stats, setStats] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/stats').then(r => r.json()).then(setStats).catch(() => {});
+  }, []);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
       
       {/* 1. HERO SECTION INSTITUCIONAL */}
-      <section style={{
+      <section className="hero" style={{
         textAlign: 'center',
-        padding: '3.5rem 1rem 2rem',
+        padding: '4.5rem 0 2rem',
         maxWidth: '920px',
         margin: '0 auto',
         position: 'relative'
@@ -56,7 +61,7 @@ export default function HomeView({
 
         {/* Título Principal */}
         <h1 style={{
-          fontSize: '3.2rem',
+          fontSize: 'clamp(2.1rem, 6.5vw, 3.6rem)',
           fontWeight: 800,
           lineHeight: 1.15,
           letterSpacing: '-0.03em',
@@ -124,33 +129,22 @@ export default function HomeView({
         </div>
       </section>
 
-      {/* 2. FAIXA DE MÉTRICAS INSTITUCIONAIS */}
-      <section style={{
-        background: 'rgba(16, 24, 40, 0.65)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: 'var(--radius-xl)',
-        padding: '1.75rem 2.5rem',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-        gap: '2rem',
-        textAlign: 'center'
-      }}>
-        <div>
-          <div style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--gold-light)' }}>100%</div>
-          <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Autonomia & Colaboração</div>
-        </div>
-        <div>
-          <div style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--blue-light)' }}>Dossiês</div>
-          <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Jurisprudência & Contratos</div>
-        </div>
-        <div>
-          <div style={{ fontSize: '2.2rem', fontWeight: 800, color: '#34D399' }}>~72%</div>
-          <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Otimização de Mídias</div>
-        </div>
-        <div>
-          <div style={{ fontSize: '2.2rem', fontWeight: 800, color: '#FBBF24' }}>Encontros</div>
-          <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Palestras & Alinhamentos</div>
-        </div>
+      {/* 2. FAIXA DE MÉTRICAS (números reais do banco) */}
+      <section className="stats-strip">
+        {[
+          { value: stats?.members, label: 'Membros', color: 'var(--gold-light)' },
+          { value: stats?.books, label: 'Dossiês no Acervo', color: 'var(--blue-light)' },
+          { value: stats?.lessons, label: 'Aulas em Vídeo', color: '#34D399' },
+          { value: stats?.ideas, label: 'Ideias Propostas', color: '#60A5FA' },
+          { value: stats?.events, label: 'Palestras & Reuniões', color: '#C084FC' }
+        ].map((item) => (
+          <div key={item.label}>
+            <div style={{ fontFamily: "'Outfit', sans-serif", fontSize: '2.4rem', fontWeight: 800, color: item.color, lineHeight: 1.1 }}>
+              {item.value ?? '–'}
+            </div>
+            <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.3rem' }}>{item.label}</div>
+          </div>
+        ))}
       </section>
 
       {/* 3. PILARES DO SITE (O QUE A PLATAFORMA OFERECE) */}
@@ -166,13 +160,13 @@ export default function HomeView({
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
           gap: '1.5rem'
         }}>
           {/* Card 1: Dossiês */}
           <div 
             onClick={() => onNavigateTab('library')}
-            className="glass-panel"
+            className="glass-panel card-hover"
             style={{
               padding: '2rem',
               cursor: 'pointer',
@@ -208,7 +202,7 @@ export default function HomeView({
           {/* Card 2: Banco de Ideias */}
           <div 
             onClick={() => onNavigateTab('ideas')}
-            className="glass-panel"
+            className="glass-panel card-hover"
             style={{
               padding: '2rem',
               cursor: 'pointer',
@@ -244,7 +238,7 @@ export default function HomeView({
           {/* Card 3: Palestras e Encontros */}
           <div 
             onClick={() => onNavigateTab('events')}
-            className="glass-panel"
+            className="glass-panel card-hover"
             style={{
               padding: '2rem',
               cursor: 'pointer',
@@ -280,7 +274,7 @@ export default function HomeView({
           {/* Card 4: Membros */}
           <div 
             onClick={() => onNavigateTab('members')}
-            className="glass-panel"
+            className="glass-panel card-hover"
             style={{
               padding: '2rem',
               cursor: 'pointer',
@@ -325,7 +319,7 @@ export default function HomeView({
         position: 'relative',
         overflow: 'hidden'
       }}>
-        <h2 style={{ fontSize: '2.1rem', marginBottom: '0.75rem' }}>
+        <h2 style={{ fontSize: 'clamp(1.5rem, 4.5vw, 2.1rem)', marginBottom: '0.75rem' }}>
           Pronto para colaborar e trocar inteligência com o grupo?
         </h2>
         <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', maxWidth: '640px', margin: '0 auto 2rem' }}>

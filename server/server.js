@@ -7,13 +7,25 @@ const fs = require('fs');
 const multer = require('multer');
 const db = require('./db');
 const seedDatabase = require('./seed');
+const { compressMedia, VIDEO_EXTS } = require('./compress');
 
 // Garante que o banco tem os dados iniciais caso ainda não existam
 seedDatabase();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET || 'empreendedores_brasil_secret_key_2026';
+// Segredo do JWT: variável de ambiente ou um segredo aleatório gerado uma vez e salvo localmente
+// (um segredo fixo no código público permitiria forjar login de qualquer membro)
+const SECRET_FILE = path.join(__dirname, '.jwt_secret');
+if (!process.env.JWT_SECRET && !fs.existsSync(SECRET_FILE)) {
+  fs.writeFileSync(SECRET_FILE, require('crypto').randomBytes(48).toString('hex'));
+}
+const JWT_SECRET = process.env.JWT_SECRET || fs.readFileSync(SECRET_FILE, 'utf8').trim();
+
+// Só aceita links http(s) — bloqueia "javascript:" e afins em hrefs renderizados no front
+function isHttpUrl(value) {
+  return typeof value === 'string' && /^https?:\/\//i.test(value.trim());
+}
 
 // Diretório para armazenamento de uploads (PDFs, vídeos, minutas)
 const UPLOADS_DIR = path.join(__dirname, 'uploads');
@@ -33,15 +45,42 @@ const storage = multer.diskStorage({
   }
 });
 
+// Extensões permitidas: impede upload de .html/.svg/.js servidos no mesmo domínio (XSS)
+const ALLOWED_UPLOAD_EXTS = ['.pdf', ...VIDEO_EXTS, '.doc', '.docx', '.txt', '.rtf',
+  '.xls', '.xlsx', '.csv', '.ppt', '.pptx', '.png', '.jpg', '.jpeg', '.webp', '.zip'];
+
+function extFilter(allowed) {
+  return (req, file, cb) => {
+    const ok = allowed.includes(path.extname(file.originalname).toLowerCase());
+    cb(ok ? null : new Error('Tipo de arquivo não permitido'), ok);
+  };
+}
+
 const upload = multer({
   storage,
-  limits: { fileSize: 50 * 1024 * 1024 } // Até 50MB
+  limits: { fileSize: 50 * 1024 * 1024 }, // Até 50MB
+  fileFilter: extFilter(ALLOWED_UPLOAD_EXTS)
 });
+
+// Aulas aceitam só vídeo, e maiores (são comprimidos depois)
+const uploadVideo = multer({
+  storage,
+  limits: { fileSize: 1024 * 1024 * 1024 }, // Até 1GB
+  fileFilter: extFilter(VIDEO_EXTS)
+});
+
+// Comprime em segundo plano e devolve a URL pública e o tamanho final
+async function compressUpload(filename) {
+  const result = await compressMedia(path.join(UPLOADS_DIR, filename));
+  return { url: '/uploads/' + path.basename(result.filePath), size: result.size };
+}
 
 app.use(cors());
 app.use(express.json());
 // Servir uploads de forma estática
-app.use('/uploads', express.static(UPLOADS_DIR));
+app.use('/uploads', express.static(UPLOADS_DIR, {
+  setHeaders: (res) => res.setHeader('X-Content-Type-Options', 'nosniff')
+}));
 
 // Middleware de Autenticação JWT
 function authenticateToken(req, res, next) {
@@ -576,6 +615,10 @@ app.post('/api/events', authenticateToken, (req, res) => {
       return res.status(400).json({ error: 'Tipo de evento inválido. Use "meeting" ou "talk"' });
     }
 
+    if (meeting_link && !isHttpUrl(meeting_link)) {
+      return res.status(400).json({ error: 'O link da sala deve começar com http:// ou https://' });
+    }
+
     const insert = db.prepare(`
       INSERT INTO events (
         title, type, description, date_time, duration_minutes,
@@ -661,6 +704,7 @@ app.get('/api/stats', (req, res) => {
     const commentsCount = db.prepare('SELECT COUNT(*) as count FROM comments').get().count;
     const booksCount = db.prepare('SELECT COUNT(*) as count FROM knowledge_books').get().count;
     const materialsCount = db.prepare('SELECT COUNT(*) as count FROM knowledge_items').get().count;
+    const lessonsCount = db.prepare('SELECT COUNT(*) as count FROM lessons').get().count;
 
     res.json({
       members: Number(membersCount),
@@ -668,7 +712,8 @@ app.get('/api/stats', (req, res) => {
       events: Number(eventsCount),
       comments: Number(commentsCount),
       books: Number(booksCount),
-      materials: Number(materialsCount)
+      materials: Number(materialsCount),
+      lessons: Number(lessonsCount)
     });
   } catch (error) {
     res.status(500).json({ error: 'Erro ao carregar estatísticas' });
@@ -890,8 +935,8 @@ app.post('/api/books/:id/items', authenticateToken, upload.single('file'), (req,
       // Arquivo enviado via upload
       originalName = req.file.originalname;
       fileSizeBytes = req.file.size;
-      // Taxa de compressão simulada / otimização leve (ex: ~28-35% do tamanho original)
-      compressedSizeBytes = Math.max(1024, Math.round(fileSizeBytes * 0.28));
+      // Até a compressão terminar o tamanho "compactado" é o original; atualizado logo abaixo
+      compressedSizeBytes = fileSizeBytes;
       file_url = `/uploads/${req.file.filename}`;
 
       const ext = path.extname(originalName).toLowerCase();
@@ -907,9 +952,10 @@ app.post('/api/books/:id/items', authenticateToken, upload.single('file'), (req,
       if (!file_url) {
         return res.status(400).json({ error: 'É necessário anexar um arquivo ou informar uma URL' });
       }
+      if (!isHttpUrl(file_url)) {
+        return res.status(400).json({ error: 'A URL deve começar com http:// ou https://' });
+      }
       originalName = title || 'Recurso Web';
-      fileSizeBytes = 1048576; // 1 MB referencial
-      compressedSizeBytes = 262144;
       if (!file_type) file_type = 'link';
       external_platform = external_platform || 'web';
     }
@@ -951,6 +997,12 @@ app.post('/api/books/:id/items', authenticateToken, upload.single('file'), (req,
     `).get(itemId);
 
     res.status(201).json({ message: 'Material acrescentado ao dossiê com sucesso!', item: newItem });
+
+    if (req.file) {
+      compressUpload(req.file.filename).then(({ url, size }) => {
+        db.prepare('UPDATE knowledge_items SET file_url = ?, compressed_size_bytes = ? WHERE id = ?').run(url, size, itemId);
+      });
+    }
   } catch (error) {
     console.error('Erro ao adicionar material:', error);
     res.status(500).json({ error: 'Erro ao anexar material ao dossiê' });
@@ -1056,6 +1108,66 @@ app.get('/api/users/:id/library', (req, res) => {
     res.status(500).json({ error: 'Erro ao carregar acervo do membro' });
   }
 });
+
+// ==========================================
+// 6. AULAS EM VÍDEO
+// ==========================================
+app.get('/api/lessons', (req, res) => {
+  try {
+    const { category } = req.query;
+    let query = `
+      SELECT l.*, u.name as uploader_name, u.avatar as uploader_avatar, u.company as uploader_company
+      FROM lessons l
+      JOIN users u ON l.uploader_id = u.id
+    `;
+    const params = [];
+    if (category && category !== 'Todas') {
+      query += ' WHERE l.category = ?';
+      params.push(category);
+    }
+    query += ' ORDER BY l.created_at DESC';
+    res.json(db.prepare(query).all(...params));
+  } catch (error) {
+    console.error('Erro ao listar aulas:', error);
+    res.status(500).json({ error: 'Erro ao carregar aulas' });
+  }
+});
+
+app.post('/api/lessons', authenticateToken, uploadVideo.single('video'), (req, res) => {
+  try {
+    const { title, description, category } = req.body;
+    if (!req.file) {
+      return res.status(400).json({ error: 'Envie um arquivo de vídeo' });
+    }
+    if (!title || !title.trim() || !category) {
+      fs.rmSync(req.file.path, { force: true });
+      return res.status(400).json({ error: 'Título e categoria são obrigatórios' });
+    }
+
+    const result = db.prepare(`
+      INSERT INTO lessons (title, description, category, file_url, original_size_bytes, compressed_size_bytes, uploader_id)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `).run(title.trim(), (description || '').trim(), category, '/uploads/' + req.file.filename,
+      req.file.size, req.file.size, req.user.id);
+    const lessonId = Number(result.lastInsertRowid);
+
+    res.status(201).json({ message: 'Aula enviada! Compactando o vídeo...', lessonId });
+
+    compressUpload(req.file.filename).then(({ url, size }) => {
+      db.prepare("UPDATE lessons SET file_url = ?, compressed_size_bytes = ?, status = 'ready' WHERE id = ?").run(url, size, lessonId);
+    });
+  } catch (error) {
+    console.error('Erro ao enviar aula:', error);
+    res.status(500).json({ error: 'Erro ao enviar aula' });
+  }
+});
+
+// Erros de upload (tipo bloqueado, arquivo grande demais) voltam como JSON para o front exibir
+app.use((err, req, res, next) => {
+  res.status(400).json({ error: err.code === 'LIMIT_FILE_SIZE' ? 'Arquivo grande demais' : err.message });
+});
+
+db.prepare("UPDATE lessons SET status = 'ready' WHERE status = 'processing'").run();
 
 app.listen(PORT, () => {
   console.log(`\x1b[32m✓ Servidor Empreendedores do Brasil rodando na porta ${PORT}\x1b[0m`);

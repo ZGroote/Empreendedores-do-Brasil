@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import IdeasBoard from './components/IdeasBoard';
@@ -14,11 +14,32 @@ import IdeaDetailsModal from './components/IdeaDetailsModal';
 import NewIdeaModal from './components/NewIdeaModal';
 import NewEventModal from './components/NewEventModal';
 import AuthModal from './components/AuthModal';
+import LessonsView, { NewLessonModal } from './components/LessonsView';
+
+const TABS = ['home', 'library', 'lessons', 'ideas', 'events', 'members'];
+
+function readTabFromHash() {
+  const tab = window.location.hash.slice(1);
+  return TABS.includes(tab) ? tab : 'home';
+}
 
 function MainApp() {
   const { isAuthModalOpen, setIsAuthModalOpen } = useAuth();
-  const [activeTab, setActiveTab] = useState('home'); // Agora inicia na página 'home' institucional
-  
+  // Aba ativa sincronizada com o hash da URL (#ideas, #library...) para o voltar do navegador e links diretos
+  const [activeTab, setActiveTabState] = useState(() => readTabFromHash());
+
+  useEffect(() => {
+    const onHashChange = () => setActiveTabState(readTabFromHash());
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  function setActiveTab(tab) {
+    window.location.hash = tab === 'home' ? '' : tab;
+    setActiveTabState(tab);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   // Modais
   const [selectedIdeaId, setSelectedIdeaId] = useState(null);
   const [selectedBookId, setSelectedBookId] = useState(null);
@@ -26,6 +47,7 @@ function MainApp() {
   const [isNewIdeaOpen, setIsNewIdeaOpen] = useState(false);
   const [isNewEventOpen, setIsNewEventOpen] = useState(false);
   const [isNewBookOpen, setIsNewBookOpen] = useState(false);
+  const [isNewLessonOpen, setIsNewLessonOpen] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
 
   function handleTriggerRefresh() {
@@ -41,6 +63,7 @@ function MainApp() {
         onOpenNewIdea={() => setIsNewIdeaOpen(true)}
         onOpenNewEvent={() => setIsNewEventOpen(true)}
         onOpenNewBook={() => setIsNewBookOpen(true)}
+        onOpenNewLesson={() => setIsNewLessonOpen(true)}
         onSelectMember={(id) => setSelectedMemberId(id)}
       />
 
@@ -61,6 +84,13 @@ function MainApp() {
             onSelectBook={(id) => setSelectedBookId(id)}
             onOpenNewBook={() => setIsNewBookOpen(true)}
             onSelectMember={(id) => setSelectedMemberId(id)}
+          />
+        )}
+
+        {activeTab === 'lessons' && (
+          <LessonsView
+            key={`lessons-${refreshKey}`}
+            onOpenUpload={() => setIsNewLessonOpen(true)}
           />
         )}
 
@@ -146,6 +176,16 @@ function MainApp() {
           onEventCreated={() => {
             handleTriggerRefresh();
             setActiveTab('events');
+          }}
+        />
+      )}
+
+      {isNewLessonOpen && (
+        <NewLessonModal
+          onClose={() => setIsNewLessonOpen(false)}
+          onCreated={() => {
+            handleTriggerRefresh();
+            setActiveTab('lessons');
           }}
         />
       )}
