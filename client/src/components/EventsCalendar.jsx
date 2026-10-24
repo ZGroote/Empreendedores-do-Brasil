@@ -159,7 +159,7 @@ export default function EventsCalendar({ onOpenNewEvent }) {
           </button>
         </div>
 
-        <span style={{ fontSize: '0.82rem', color: 'var(--ink-3)' }}>
+        <span style={{ fontSize: '0.875rem', color: 'var(--ink-3)' }}>
           Horário de Brasília
         </span>
       </div>
@@ -179,7 +179,7 @@ export default function EventsCalendar({ onOpenNewEvent }) {
         }}>
           <CalendarIcon size={42} color="var(--accent)" style={{ opacity: 0.6, marginBottom: '1rem' }} />
           <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>Nenhum evento agendado no filtro</h3>
-          <p style={{ color: 'var(--ink-3)', maxWidth: '420px', margin: '0 auto 1.5rem', fontSize: '0.9rem' }}>
+          <p style={{ color: 'var(--ink-3)', maxWidth: '420px', margin: '0 auto 1.5rem', fontSize: '0.94rem' }}>
             Nenhuma reunião ou palestra encontrada nesta categoria. Agende a primeira para mobilizar o grupo!
           </p>
           <button type="button" className="btn btn-primary" onClick={onOpenNewEvent}>
@@ -204,13 +204,13 @@ export default function EventsCalendar({ onOpenNewEvent }) {
               >
                 {/* Bloco de Data e Horário em Destaque */}
                 <div className="event-date">
-                  <div style={{ fontSize: '0.8rem', fontWeight: 700, color: isTalk ? 'var(--accent)' : 'var(--signal)', textTransform: 'uppercase' }}>
+                  <div style={{ fontSize: '0.875rem', fontWeight: 700, color: isTalk ? 'var(--accent)' : 'var(--signal)', textTransform: 'uppercase' }}>
                     {month}
                   </div>
-                  <div style={{ fontFamily: 'var(--font-display)', fontSize: '2.6rem', fontWeight: 400, lineHeight: 1, color: 'var(--ink)' }}>
+                  <div style={{ fontSize: '2.2rem', fontWeight: 700, lineHeight: 1.1, color: 'var(--ink)' }}>
                     {day}
                   </div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--ink-2)', marginTop: '0.3rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--ink-2)', marginTop: '0.3rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                     <Clock size={12} />
                     {time}
                   </div>
@@ -226,11 +226,11 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                         {isTalk ? 'Palestra' : 'Reunião'}
                       </span>
 
-                      <span style={{ fontSize: '0.75rem', color: 'var(--ink-3)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                         <Clock size={12} /> {eventItem.duration_minutes} minutos
                       </span>
 
-                      <span style={{ fontSize: '0.75rem', color: 'var(--ink-3)' }}>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                         • {weekday}
                       </span>
                     </div>
@@ -241,7 +241,7 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                     </h3>
 
                     {/* Descrição */}
-                    <p style={{ fontSize: '0.9rem', color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: '1rem' }}>
+                    <p style={{ fontSize: '0.94rem', color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: '1rem' }}>
                       {eventItem.description}
                     </p>
 
@@ -263,10 +263,10 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                           style={{ width: 34, height: 34, borderRadius: '50%', objectFit: 'cover' }}
                         />
                         <div>
-                          <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--ink)' }}>
+                          <div style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--ink)' }}>
                             Palestrante: {eventItem.speaker.name}
                           </div>
-                          <div style={{ fontSize: '0.75rem', color: 'var(--accent)' }}>
+                          <div style={{ fontSize: '0.8rem', color: 'var(--accent)' }}>
                             {eventItem.speaker.topic || `${eventItem.speaker.company}`}
                           </div>
                         </div>
@@ -299,7 +299,7 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                           <ExternalLink size={12} />
                         </a>
                       ) : (
-                        <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                        <span style={{ fontSize: '0.875rem', color: 'var(--ink-3)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                           <Video size={14} /> Link será disponibilizado aos confirmados
                         </span>
                       )}
@@ -327,7 +327,7 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                             />
                           ))}
                         </div>
-                        <span style={{ fontSize: '0.82rem', color: 'var(--ink-2)' }}>
+                        <span style={{ fontSize: '0.875rem', color: 'var(--ink-2)' }}>
                           <strong>{eventItem.attendees_count}</strong> {eventItem.attendees_count === 1 ? 'membro confirmado' : 'membros confirmados'}
                         </span>
                       </div>

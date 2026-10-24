@@ -126,7 +126,7 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
             </div>
             <div>
               <h2 style={{ fontSize: '1.25rem', lineHeight: 1.2 }}>Criar Novo Dossiê / Livro</h2>
-              <div style={{ fontSize: '0.75rem', color: 'var(--ink-3)' }}>
+              <div style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                 Inaugure uma nova coletânea de conhecimento para a rede
               </div>
             </div>
@@ -145,7 +145,7 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
                 color: 'var(--danger)',
                 padding: '0.75rem 1rem',
                 borderRadius: 'var(--radius-md)',
-                fontSize: '0.85rem',
+                fontSize: '0.875rem',
                 marginBottom: '1.25rem'
               }}>
                 {error}
@@ -216,7 +216,7 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
                     }}
                   >
                     <div style={{ width: 18, height: 18, borderRadius: '50%', background: opt.color }} />
-                    <span style={{ fontSize: '0.72rem', color: colorGradient === opt.id ? 'var(--ink)' : 'var(--ink-3)' }}>
+                    <span style={{ fontSize: '0.8rem', color: colorGradient === opt.id ? 'var(--ink)' : 'var(--ink-3)' }}>
                       {opt.name}
                     </span>
                   </button>
@@ -255,7 +255,7 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
                         border: '1px solid var(--rule)',
                         borderRadius: 'var(--radius-full)',
                         padding: '0.2rem 0.65rem',
-                        fontSize: '0.78rem',
+                        fontSize: '0.8rem',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '0.35rem'
@@ -291,10 +291,10 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                 <Users size={20} color="var(--accent)" />
                 <div>
-                  <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--ink)' }}>
+                  <div style={{ fontSize: '0.94rem', fontWeight: 600, color: 'var(--ink)' }}>
                     Permitir que outros membros acrescentem materiais
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--ink-3)' }}>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                     Dossiê colaborativo: qualquer empreendedor verificado pode anexar PDFs e vídeos.
                   </div>
                 </div>

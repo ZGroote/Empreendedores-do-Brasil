@@ -60,20 +60,20 @@ export default function HomeView({ onNavigateTab, onOpenAuth }) {
               onClick={() => onNavigateTab('events')}
               style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: 'inherit', textAlign: 'left', cursor: 'pointer', marginTop: '0.75rem' }}
             >
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: '3.2rem', lineHeight: 1, fontWeight: 400 }}>
+              <div style={{ fontSize: '2.4rem', lineHeight: 1.1, fontWeight: 700 }}>
                 {eventDate.toLocaleDateString('pt-BR', { day: '2-digit' })}
-                <span style={{ fontSize: '1.1rem', fontStyle: 'italic', color: 'var(--ink-2)', marginLeft: '0.5rem' }}>
+                <span style={{ fontSize: '1.1rem', color: 'var(--ink-2)', marginLeft: '0.5rem' }}>
                   {eventDate.toLocaleDateString('pt-BR', { month: 'long' })}, {eventDate.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
                 </span>
               </div>
               <h3 style={{ fontSize: '1.2rem', lineHeight: 1.3, margin: '0.9rem 0 0.5rem' }}>{nextEvent.title}</h3>
-              <p style={{ fontSize: '0.88rem', color: 'var(--ink-3)' }}>
+              <p style={{ fontSize: '0.94rem', color: 'var(--ink-3)' }}>
                 {nextEvent.type === 'talk' ? 'Palestra' : 'Reunião'}
                 {nextEvent.speaker?.name ? ` com ${nextEvent.speaker.name}` : ''} · {nextEvent.attendees_count} confirmados
               </p>
             </button>
           ) : (
-            <p style={{ color: 'var(--ink-3)', marginTop: '0.75rem', fontSize: '0.95rem' }}>Nenhum encontro marcado ainda.</p>
+            <p style={{ color: 'var(--ink-3)', marginTop: '0.75rem', fontSize: '1.0rem' }}>Nenhum encontro marcado ainda.</p>
           )}
         </aside>
       </section>
@@ -94,7 +94,7 @@ export default function HomeView({ onNavigateTab, onOpenAuth }) {
       </section>
 
       <section style={{ marginTop: '4rem' }}>
-        <h2 style={{ fontSize: 'clamp(1.6rem, 4vw, 2.2rem)', fontStyle: 'italic', fontWeight: 400, marginBottom: '0.5rem' }}>
+        <h2 style={{ fontSize: '1.5rem', margin: '0 0 1rem' }}>
           O que tem aqui dentro
         </h2>
         <ol className="section-index">

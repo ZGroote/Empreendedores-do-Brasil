@@ -10,7 +10,7 @@ const links = [
 
 export default function Footer({ onNavigateTab }) {
   return (
-    <footer style={{ borderTop: '1px solid var(--ink)', marginTop: 'auto' }}>
+    <footer style={{ borderTop: '1px solid var(--rule)', background: 'var(--surface)', marginTop: 'auto' }}>
       <div style={{
         maxWidth: '1200px',
         margin: '0 auto',
@@ -29,7 +29,7 @@ export default function Footer({ onNavigateTab }) {
           >
             Empreendedores <em>do Brasil</em>
           </button>
-          <p style={{ fontSize: '0.9rem', color: 'var(--ink-2)', marginTop: '0.75rem' }}>
+          <p style={{ fontSize: '0.94rem', color: 'var(--ink-2)', marginTop: '0.75rem' }}>
             Um grupo fechado de empreendedores que troca ideias, conhecimento e contatos.
           </p>
         </div>
@@ -53,7 +53,7 @@ export default function Footer({ onNavigateTab }) {
         margin: '0 auto',
         padding: '1.25rem 1.5rem 2rem',
         borderTop: '1px solid var(--rule)',
-        fontSize: '0.8rem',
+        fontSize: '0.875rem',
         color: 'var(--ink-3)'
       }}>
         © {new Date().getFullYear()} Empreendedores do Brasil

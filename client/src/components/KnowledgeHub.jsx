@@ -120,7 +120,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
           <p>
             Coletâneas montadas a várias mãos: contratos, teses, relatórios e gravações. Crie um dossiê sobre um tema e o grupo vai somando material.
           </p>
-          <p style={{ fontSize: '0.88rem', color: 'var(--ink-3)', marginTop: '0.75rem' }}>
+          <p style={{ fontSize: '0.94rem', color: 'var(--ink-3)', marginTop: '0.75rem' }}>
             {books.length} dossiês · {totalMaterials} materiais · {totalDiscussions} mensagens
           </p>
         </div>
@@ -176,7 +176,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
               className="form-input"
               style={{
                 paddingLeft: '2.4rem',
-                fontSize: '0.85rem',
+                fontSize: '0.875rem',
                 paddingTop: '0.5rem',
                 paddingBottom: '0.5rem',
                 borderRadius: 'var(--radius-full)'
@@ -190,7 +190,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
             className="form-select"
             style={{
               width: 'auto',
-              fontSize: '0.85rem',
+              fontSize: '0.875rem',
               padding: '0.5rem 0.9rem',
               borderRadius: 'var(--radius-full)'
             }}
@@ -217,7 +217,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
         }}>
           <BookOpen size={48} color="var(--accent)" style={{ opacity: 0.6, margin: '0 auto 1rem' }} />
           <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>Nenhum dossiê encontrado nesta categoria</h3>
-          <p style={{ color: 'var(--ink-2)', fontSize: '0.9rem', maxWidth: '460px', margin: '0 auto 1.5rem' }}>
+          <p style={{ color: 'var(--ink-2)', fontSize: '0.94rem', maxWidth: '460px', margin: '0 auto 1.5rem' }}>
             Seja o pioneiro a inaugurar este tema com um novo livro colaborativo, subindo os primeiros arquivos ou jurisprudências.
           </p>
           <button
@@ -277,7 +277,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '0.85rem' }}>
                     <span 
                       style={{
-                        fontSize: '0.72rem',
+                        fontSize: '0.8rem',
                         fontWeight: 700,
                         textTransform: 'uppercase',
                         letterSpacing: '0.06em',
@@ -300,7 +300,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
                         display: 'flex',
                         alignItems: 'center',
                         gap: '0.35rem',
-                        fontSize: '0.78rem',
+                        fontSize: '0.8rem',
                         fontWeight: 600,
                         cursor: 'pointer',
                         transition: 'var(--transition)'
@@ -324,7 +324,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
                   </h3>
 
                   {/* Selo Colaborativo */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.75rem', color: 'var(--ink-2)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: 'var(--ink-2)' }}>
                     <CheckCircle2 size={13} color="var(--accent)" />
                     <span>Aberto a colaboração</span>
                   </div>
@@ -334,7 +334,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
                 <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1, gap: '1.2rem' }}>
                   {/* Descrição resumida */}
                   <p style={{
-                    fontSize: '0.88rem',
+                    fontSize: '0.94rem',
                     color: 'var(--ink-2)',
                     lineHeight: 1.55,
                     display: '-webkit-box',
@@ -353,7 +353,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
                         <span
                           key={idx}
                           style={{
-                            fontSize: '0.72rem',
+                            fontSize: '0.8rem',
                             color: 'var(--ink-3)',
                             background: 'var(--fill)',
                             padding: '0.2rem 0.55rem',
@@ -365,7 +365,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
                         </span>
                       ))}
                       {book.tags.length > 3 && (
-                        <span style={{ fontSize: '0.72rem', color: 'var(--ink-3)' }}>
+                        <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                           +{book.tags.length - 3}
                         </span>
                       )}
@@ -381,7 +381,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    fontSize: '0.8rem'
+                    fontSize: '0.875rem'
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', color: 'var(--accent)' }}>
                       <FileText size={15} />
@@ -427,10 +427,10 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
                         }}
                       />
                       <div>
-                        <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--ink)' }}>
+                        <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--ink)' }}>
                           {book.creator_name}
                         </div>
-                        <div style={{ fontSize: '0.72rem', color: 'var(--ink-3)' }}>
+                        <div style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                           {book.creator_company}
                         </div>
                       </div>
@@ -439,7 +439,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
                     {/* Colaboradores adicionais (se houver) */}
                     {book.contributors && book.contributors.length > 0 && (
                       <div style={{ display: 'flex', alignItems: 'center', gap: '-6px' }} title={`${book.contributors.length} membros contribuíram com materiais`}>
-                        <div style={{ fontSize: '0.72rem', color: 'var(--ink-3)', marginRight: '0.35rem' }}>
+                        <div style={{ fontSize: '0.8rem', color: 'var(--ink-3)', marginRight: '0.35rem' }}>
                           +colabs:
                         </div>
                         <div style={{ display: 'flex', marginLeft: '-0.3rem' }}>
@@ -470,7 +470,7 @@ export default function KnowledgeHub({ onSelectBook, onOpenNewBook, onSelectMemb
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     color: g.accent,
-                    fontSize: '0.82rem',
+                    fontSize: '0.875rem',
                     fontWeight: 600,
                     paddingTop: '0.3rem'
                   }}>

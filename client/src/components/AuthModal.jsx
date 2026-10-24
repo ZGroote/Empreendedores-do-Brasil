@@ -60,7 +60,7 @@ export default function AuthModal({ isOpen, onClose }) {
             <h3 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span className="em-accent">Empreendedores do Brasil</span>
             </h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--ink-3)', marginTop: '0.2rem' }}>
+            <p style={{ fontSize: '0.875rem', color: 'var(--ink-3)', marginTop: '0.2rem' }}>
               {tab === 'login' ? 'Acesse sua conta para interagir e agendar' : 'Junte-se à rede exclusiva de fundadores'}
             </p>
           </div>
@@ -86,7 +86,7 @@ export default function AuthModal({ isOpen, onClose }) {
               borderBottom: tab === 'login' ? '2px solid var(--accent)' : '2px solid transparent',
               color: tab === 'login' ? 'var(--accent)' : 'var(--ink-3)',
               fontWeight: 600,
-              fontSize: '0.9rem',
+              fontSize: '0.94rem',
               cursor: 'pointer',
               transition: 'var(--transition)'
             }}
@@ -104,7 +104,7 @@ export default function AuthModal({ isOpen, onClose }) {
               borderBottom: tab === 'register' ? '2px solid var(--accent)' : '2px solid transparent',
               color: tab === 'register' ? 'var(--accent)' : 'var(--ink-3)',
               fontWeight: 600,
-              fontSize: '0.9rem',
+              fontSize: '0.94rem',
               cursor: 'pointer',
               transition: 'var(--transition)'
             }}
@@ -123,7 +123,7 @@ export default function AuthModal({ isOpen, onClose }) {
               borderRadius: 'var(--radius-md)',
               padding: '0.75rem 1rem',
               color: 'var(--danger)',
-              fontSize: '0.85rem',
+              fontSize: '0.875rem',
               marginBottom: '1.25rem'
             }}>
               {error}
@@ -138,7 +138,7 @@ export default function AuthModal({ isOpen, onClose }) {
             padding: '1rem',
             marginBottom: '1.5rem'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', fontWeight: 600, color: 'var(--accent)', marginBottom: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.875rem', fontWeight: 600, color: 'var(--accent)', marginBottom: '0.75rem' }}>
               Contas de teste (entrar com 1 clique)
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -157,7 +157,7 @@ export default function AuthModal({ isOpen, onClose }) {
                     border: '1px solid var(--rule)',
                     borderRadius: 'var(--radius-sm)',
                     color: 'var(--ink)',
-                    fontSize: '0.82rem',
+                    fontSize: '0.875rem',
                     cursor: 'pointer',
                     textAlign: 'left',
                     transition: 'var(--transition)'
@@ -179,7 +179,7 @@ export default function AuthModal({ isOpen, onClose }) {
                     />
                     <div>
                       <span style={{ fontWeight: 600 }}>{demo.name}</span>
-                      <span style={{ color: 'var(--ink-3)', marginLeft: '0.4rem', fontSize: '0.75rem' }}>({demo.company})</span>
+                      <span style={{ color: 'var(--ink-3)', marginLeft: '0.4rem', fontSize: '0.8rem' }}>({demo.company})</span>
                     </div>
                   </div>
                   <ArrowRight size={14} color="var(--accent)" />

@@ -123,9 +123,9 @@ export default function Navbar({
               {openMenu === 'profile' && (
                 <div className="dropdown-menu" style={{ width: 250, padding: '0.75rem' }}>
                   <div style={{ padding: '0.4rem 0.5rem 0.75rem', borderBottom: '1px solid var(--rule)' }}>
-                    <div style={{ fontWeight: 700, fontSize: '0.88rem' }}>{user.name}</div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--ink-3)' }}>{user.email}</div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--accent)', marginTop: '0.2rem' }}>
+                    <div style={{ fontWeight: 700, fontSize: '0.94rem' }}>{user.name}</div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>{user.email}</div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--accent)', marginTop: '0.2rem' }}>
                       {user.role} @ {user.company}
                     </div>
                   </div>

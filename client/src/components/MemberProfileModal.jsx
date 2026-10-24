@@ -109,7 +109,7 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
                 <h2 style={{ fontSize: '1.4rem' }}>{profile.name}</h2>
                 <span className="badge badge-accent">Empreendedor Membro</span>
               </div>
-              <div style={{ fontSize: '0.88rem', color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <div style={{ fontSize: '0.94rem', color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <Building size={14} />
                 <span>{profile.company}</span>
                 <span style={{ color: 'var(--ink-3)' }}>•</span>
@@ -119,7 +119,7 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
           </div>
 
           <p style={{
-            fontSize: '0.88rem',
+            fontSize: '0.94rem',
             color: 'var(--ink-2)',
             lineHeight: 1.55,
             marginTop: '1.2rem',
@@ -138,7 +138,7 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
             marginTop: '1.25rem',
             paddingTop: '1rem',
             borderTop: '1px solid var(--rule)',
-            fontSize: '0.82rem'
+            fontSize: '0.875rem'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--accent)' }}>
               <BookOpen size={15} />
@@ -172,7 +172,7 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
               borderBottom: activeTab === 'books' ? '2px solid var(--accent)' : '2px solid transparent',
               color: activeTab === 'books' ? 'var(--accent)' : 'var(--ink-2)',
               fontWeight: 600,
-              fontSize: '0.88rem',
+              fontSize: '0.94rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -193,7 +193,7 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
               borderBottom: activeTab === 'materials' ? '2px solid var(--accent)' : '2px solid transparent',
               color: activeTab === 'materials' ? 'var(--accent)' : 'var(--ink-2)',
               fontWeight: 600,
-              fontSize: '0.88rem',
+              fontSize: '0.94rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -243,17 +243,17 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
                   >
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.3rem' }}>
-                        <span className="badge badge-accent" style={{ fontSize: '0.68rem' }}>
+                        <span className="badge badge-accent" style={{ fontSize: '0.8rem' }}>
                           {b.category}
                         </span>
-                        <span style={{ fontSize: '0.78rem', color: 'var(--ink-3)' }}>
+                        <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                           {b.items_count || 0} materiais • {b.likes_count || 0} apoios
                         </span>
                       </div>
                       <h4 style={{ fontSize: '1.05rem', color: 'var(--ink)', marginBottom: '0.25rem' }}>
                         {b.title}
                       </h4>
-                      <p style={{ fontSize: '0.82rem', color: 'var(--ink-2)', margin: 0, lineClamp: 2 }}>
+                      <p style={{ fontSize: '0.875rem', color: 'var(--ink-2)', margin: 0, lineClamp: 2 }}>
                         {b.description}
                       </p>
                     </div>
@@ -305,10 +305,10 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
                         )}
                       </div>
                       <div>
-                        <h4 style={{ fontSize: '0.92rem', color: 'var(--ink)' }}>
+                        <h4 style={{ fontSize: '1.0rem', color: 'var(--ink)' }}>
                           {item.title}
                         </h4>
-                        <div style={{ fontSize: '0.75rem', color: 'var(--ink-3)' }}>
+                        <div style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                           No dossiê: <strong style={{ color: 'var(--accent)' }}>{item.book_title}</strong>
                         </div>
                       </div>

@@ -38,8 +38,8 @@ O projeto foi construído para ser **100% autônomo, self-contained e de fácil 
    - Cadastro completo com dados da empresa, cargo e bio.
    - **Acesso Rápido Demonstrativo:** Permite simular diferentes perfis de membros em 1 clique para testar interações e pontos de vista.
 
-7. **Design editorial:**
-   - Papel claro, títulos em serifa (*Fraunces*) e texto em *Geist*, um verde de destaque e fios finos no lugar de sombras. Modo escuro automático em tons de carvão quente. Funciona no celular.
+7. **Visual limpo e legível:**
+   - Fundo claro, fonte *Inter*, texto com alto contraste e um verde de destaque. Modo escuro automático. Funciona no celular.
 
 ---
 

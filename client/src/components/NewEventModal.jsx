@@ -129,7 +129,7 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
             </div>
             <div>
               <h3 style={{ fontSize: '1.2rem' }}>Agendar Reunião ou Palestra Interna</h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
+              <p style={{ fontSize: '0.875rem', color: 'var(--ink-3)' }}>
                 Conecte os empreendedores em uma sessão ao vivo de alinhamento ou aprendizado
               </p>
             </div>
@@ -160,7 +160,7 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
               background: type === 'talk' ? 'var(--accent-soft)' : 'var(--fill)',
               color: type === 'talk' ? 'var(--accent)' : 'var(--ink-2)',
               fontWeight: 700,
-              fontSize: '0.9rem',
+              fontSize: '0.94rem',
               cursor: 'pointer',
               transition: 'var(--transition)'
             }}
@@ -183,7 +183,7 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
               background: type === 'meeting' ? 'var(--signal-soft)' : 'var(--fill)',
               color: type === 'meeting' ? 'var(--signal)' : 'var(--ink-2)',
               fontWeight: 700,
-              fontSize: '0.9rem',
+              fontSize: '0.94rem',
               cursor: 'pointer',
               transition: 'var(--transition)'
             }}
@@ -204,7 +204,7 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
                 borderRadius: 'var(--radius-md)',
                 padding: '0.75rem 1rem',
                 color: 'var(--danger)',
-                fontSize: '0.85rem',
+                fontSize: '0.875rem',
                 marginBottom: '1.25rem'
               }}>
                 {error}
@@ -234,13 +234,13 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
                 padding: '1rem',
                 marginBottom: '1.25rem'
               }}>
-                <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--accent)', marginBottom: '0.65rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <div style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--accent)', marginBottom: '0.65rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                   <Mic size={14} /> Dados do Palestrante / Apresentador
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                   <div>
-                    <label className="form-label" style={{ fontSize: '0.8rem' }}>Membro Palestrante</label>
+                    <label className="form-label" style={{ fontSize: '0.875rem' }}>Membro Palestrante</label>
                     <select
                       className="form-select"
                       value={speakerId}
@@ -255,7 +255,7 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
                   </div>
 
                   <div>
-                    <label className="form-label" style={{ fontSize: '0.8rem' }}>Área de Domínio / Foco</label>
+                    <label className="form-label" style={{ fontSize: '0.875rem' }}>Área de Domínio / Foco</label>
                     <input
                       type="text"
                       className="form-input"

@@ -135,11 +135,11 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
         {/* Header do Modal */}
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <span className="badge badge-accent" style={{ fontSize: '0.75rem' }}>
+            <span className="badge badge-accent" style={{ fontSize: '0.8rem' }}>
               {idea ? idea.status : 'Carregando...'}
             </span>
             {idea && (
-              <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
+              <span style={{ fontSize: '0.875rem', color: 'var(--ink-3)' }}>
                 Categoria: <strong style={{ color: 'var(--ink-2)' }}>{idea.category}</strong>
               </span>
             )}
@@ -179,7 +179,7 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
                     <div style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--ink)' }}>
                       {idea.author.name}
                     </div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--accent)' }}>
+                    <div style={{ fontSize: '0.875rem', color: 'var(--accent)' }}>
                       {idea.author.role} @ {idea.author.company}
                     </div>
                   </div>
@@ -207,7 +207,7 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
                 border: '1px solid var(--rule)',
                 borderRadius: 'var(--radius-md)',
                 padding: '1.25rem',
-                fontSize: '0.95rem',
+                fontSize: '1.0rem',
                 lineHeight: 1.7,
                 color: '#E2E8F0',
                 marginBottom: '1.25rem',
@@ -219,7 +219,7 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
               {/* Tags da Ideia */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.75rem' }}>
                 {idea.tags.map((tag, idx) => (
-                  <span key={idx} className="tag-chip" style={{ fontSize: '0.75rem' }}>
+                  <span key={idx} className="tag-chip" style={{ fontSize: '0.8rem' }}>
                     #{tag}
                   </span>
                 ))}
@@ -246,12 +246,12 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
                     <Heart size={16} fill={idea.has_voted ? 'currentColor' : 'none'} />
                     <span>{idea.has_voted ? 'Você Apoiou' : 'Apoiar esta Ideia'}</span>
                   </button>
-                  <span style={{ fontSize: '0.85rem', color: 'var(--ink-2)', marginLeft: '0.3rem' }}>
+                  <span style={{ fontSize: '0.875rem', color: 'var(--ink-2)', marginLeft: '0.3rem' }}>
                     <strong>{idea.votes_count}</strong> {idea.votes_count === 1 ? 'voto de apoio' : 'votos de apoio'}
                   </span>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', color: 'var(--ink-2)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.875rem', color: 'var(--ink-2)' }}>
                   <MessageSquare size={16} color="var(--signal)" />
                   <span><strong>{idea.comments.length}</strong> {idea.comments.length === 1 ? 'contribuição' : 'contribuições'}</span>
                 </div>
@@ -313,7 +313,7 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
                       background: 'var(--fill)',
                       borderRadius: 'var(--radius-md)',
                       color: 'var(--ink-3)',
-                      fontSize: '0.9rem'
+                      fontSize: '0.94rem'
                     }}>
                       Ainda não há comentários nesta ideia. Seja o primeiro a contribuir com sua visão!
                     </div>
@@ -337,20 +337,20 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
                               style={{ width: 32, height: 32, borderRadius: '50%', objectFit: 'cover' }}
                             />
                             <div>
-                              <span style={{ fontWeight: 600, fontSize: '0.88rem', color: 'var(--ink)' }}>
+                              <span style={{ fontWeight: 600, fontSize: '0.94rem', color: 'var(--ink)' }}>
                                 {comment.user.name}
                               </span>
-                              <span style={{ fontSize: '0.75rem', color: 'var(--accent)', marginLeft: '0.5rem' }}>
+                              <span style={{ fontSize: '0.8rem', color: 'var(--accent)', marginLeft: '0.5rem' }}>
                                 {comment.user.role} @ {comment.user.company}
                               </span>
                             </div>
                           </div>
-                          <span style={{ fontSize: '0.72rem', color: 'var(--ink-3)' }}>
+                          <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                             {new Date(comment.created_at).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
                           </span>
                         </div>
 
-                        <p style={{ fontSize: '0.88rem', color: '#CBD5E1', lineHeight: 1.6, marginLeft: '2.65rem' }}>
+                        <p style={{ fontSize: '0.94rem', color: '#CBD5E1', lineHeight: 1.6, marginLeft: '2.65rem' }}>
                           {comment.content}
                         </p>
                       </div>

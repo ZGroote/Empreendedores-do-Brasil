@@ -89,11 +89,11 @@ export default function MembersList({ onSelectTag, onSelectMember }) {
                   <h3 style={{ fontSize: '1.05rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'var(--ink)' }}>
                     {m.name}
                   </h3>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <div style={{ fontSize: '0.875rem', color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                     <Building size={13} />
                     <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{m.company}</span>
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--ink-3)' }}>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                     {m.role}
                   </div>
                 </div>
@@ -101,7 +101,7 @@ export default function MembersList({ onSelectTag, onSelectMember }) {
 
               {/* Bio */}
               <p style={{
-                fontSize: '0.85rem',
+                fontSize: '0.875rem',
                 color: 'var(--ink-2)',
                 lineHeight: 1.5,
                 background: 'var(--fill)',
@@ -117,7 +117,7 @@ export default function MembersList({ onSelectTag, onSelectMember }) {
                 type="button"
                 className="btn btn-secondary btn-sm"
                 onClick={() => onSelectMember && onSelectMember(m.id)}
-                style={{ width: '100%', fontSize: '0.8rem', justifyContent: 'center' }}
+                style={{ width: '100%', fontSize: '0.875rem', justifyContent: 'center' }}
               >
                 Ver perfil <ArrowRight size={13} />
               </button>
@@ -129,7 +129,7 @@ export default function MembersList({ onSelectTag, onSelectMember }) {
                 justifyContent: 'space-between',
                 paddingTop: '0.5rem',
                 borderTop: '1px solid var(--rule)',
-                fontSize: '0.78rem',
+                fontSize: '0.8rem',
                 color: 'var(--ink-3)'
               }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
@@ -151,7 +151,7 @@ export default function MembersList({ onSelectTag, onSelectMember }) {
                       background: 'transparent',
                       border: 'none',
                       color: 'var(--accent)',
-                      fontSize: '0.75rem',
+                      fontSize: '0.8rem',
                       fontWeight: 600,
                       cursor: 'pointer',
                       display: 'flex',

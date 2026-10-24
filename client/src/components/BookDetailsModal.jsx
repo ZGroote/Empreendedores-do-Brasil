@@ -314,7 +314,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
               <h2 style={{ fontSize: '1.65rem', lineHeight: 1.25, marginBottom: '0.6rem' }}>
                 {book.title}
               </h2>
-              <p style={{ color: 'var(--ink-2)', fontSize: '0.95rem', lineHeight: 1.55 }}>
+              <p style={{ color: 'var(--ink-2)', fontSize: '1.0rem', lineHeight: 1.55 }}>
                 {book.description}
               </p>
             </div>
@@ -370,10 +370,10 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                 }}
               />
               <div>
-                <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--ink)' }}>
+                <div style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--ink)' }}>
                   Iniciado por {book.creator_name}
                 </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--accent)' }}>
+                <div style={{ fontSize: '0.8rem', color: 'var(--accent)' }}>
                   {book.creator_role} • {book.creator_company}
                 </div>
               </div>
@@ -381,7 +381,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
 
             {/* Colaboradores da Coletânea */}
             {book.contributors && book.contributors.length > 0 && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.8rem', color: 'var(--ink-3)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', color: 'var(--ink-3)' }}>
                 <Users size={14} color="var(--signal)" />
                 <span>Empreendedores que acrescentaram materiais:</span>
                 <div style={{ display: 'flex', marginLeft: '0.2rem' }}>
@@ -418,7 +418,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
             borderBottom: '1px solid var(--accent-line)',
             color: 'var(--accent)',
             padding: '0.75rem 2rem',
-            fontSize: '0.88rem',
+            fontSize: '0.94rem',
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem'
@@ -448,7 +448,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                   <Layers size={18} color="var(--accent)" />
                   Capítulos & Materiais do Dossiê ({book.items?.length || 0})
                 </h3>
-                <p style={{ color: 'var(--ink-3)', fontSize: '0.8rem', marginTop: '0.2rem' }}>
+                <p style={{ color: 'var(--ink-3)', fontSize: '0.875rem', marginTop: '0.2rem' }}>
                   PDFs, gravações e minutas disponibilizados em versões leves e compactadas.
                 </p>
               </div>
@@ -477,7 +477,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                  <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <div style={{ fontWeight: 700, fontSize: '1.0rem', color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                     <UploadCloud size={16} />
                     <span>Contribuir com este Dossiê Coletivo</span>
                   </div>
@@ -552,7 +552,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                       className="form-input"
                       style={{ padding: '0.5rem', background: 'rgba(0,0,0,0.3)' }}
                     />
-                    <div style={{ fontSize: '0.75rem', color: 'var(--ink-3)', marginTop: '0.3rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--ink-3)', marginTop: '0.3rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                       <HardDrive size={13} color="var(--accent)" />
                       <span>O arquivo será comprimido e adaptado para carregamento instantâneo no navegador.</span>
                     </div>
@@ -599,7 +599,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                 position: 'relative'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', fontWeight: 600 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.94rem', fontWeight: 600 }}>
                     <Eye size={15} color="var(--accent)" />
                     <span>Visualização: {activePreview.title}</span>
                   </div>
@@ -635,7 +635,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                   />
                 ) : (
                   <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
-                    <p style={{ color: 'var(--ink-2)', fontSize: '0.9rem', marginBottom: '1rem' }}>
+                    <p style={{ color: 'var(--ink-2)', fontSize: '0.94rem', marginBottom: '1rem' }}>
                       Este material é um link ou documento editável.
                     </p>
                     <a
@@ -663,7 +663,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
               }}>
                 <HardDrive size={32} color="var(--ink-3)" style={{ margin: '0 auto 0.75rem' }} />
                 <h4 style={{ fontSize: '1rem', marginBottom: '0.4rem' }}>Nenhum material anexado ainda</h4>
-                <p style={{ fontSize: '0.82rem', color: 'var(--ink-3)', maxWidth: '380px', margin: '0 auto 1rem' }}>
+                <p style={{ fontSize: '0.875rem', color: 'var(--ink-3)', maxWidth: '380px', margin: '0 auto 1rem' }}>
                   Este livro está recém-criado. Seja o primeiro a acrescentar um PDF, vídeo ou modelo para os membros.
                 </p>
                 <button
@@ -715,11 +715,11 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                           </div>
                           <div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-                              <span style={{ fontSize: '0.72rem', textTransform: 'uppercase', fontWeight: 700, color: 'var(--ink-3)' }}>
+                              <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', fontWeight: 700, color: 'var(--ink-3)' }}>
                                 Capítulo #{idx + 1} • {item.file_type.toUpperCase()}
                               </span>
                               {savingPercent > 0 && <span style={{
-                                fontSize: '0.7rem',
+                                fontSize: '0.8rem',
                                 color: 'var(--accent)',
                                 background: 'var(--accent-soft)',
                                 padding: '0.15rem 0.5rem',
@@ -764,7 +764,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
 
                       {/* Descrição do Material */}
                       {item.description && (
-                        <p style={{ fontSize: '0.85rem', color: 'var(--ink-2)', lineHeight: 1.5, margin: 0 }}>
+                        <p style={{ fontSize: '0.875rem', color: 'var(--ink-2)', lineHeight: 1.5, margin: 0 }}>
                           {item.description}
                         </p>
                       )}
@@ -776,7 +776,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         gap: '0.5rem',
-                        fontSize: '0.76rem',
+                        fontSize: '0.8rem',
                         color: 'var(--ink-3)',
                         paddingTop: '0.65rem',
                         borderTop: '1px solid var(--rule)'
@@ -840,11 +840,11 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                   background: 'var(--accent)',
                   boxShadow: 'none'
                 }} />
-                <h4 style={{ fontSize: '0.95rem', fontWeight: 700 }}>
+                <h4 style={{ fontSize: '1.0rem', fontWeight: 700 }}>
                   Discussão & Bate-Papo do Dossiê
                 </h4>
               </div>
-              <span style={{ fontSize: '0.75rem', color: 'var(--ink-3)' }}>
+              <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                 {book.messages?.length || 0} mensagens
               </span>
             </div>
@@ -862,7 +862,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
               }}
             >
               {(!book.messages || book.messages.length === 0) ? (
-                <div style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--ink-3)', fontSize: '0.85rem' }}>
+                <div style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--ink-3)', fontSize: '0.875rem' }}>
                   Nenhuma mensagem ainda. Inicie o debate sobre a jurisprudência ou materiais deste dossiê!
                 </div>
               ) : (
@@ -885,7 +885,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                         display: 'flex',
                         alignItems: 'center',
                         gap: '0.4rem',
-                        fontSize: '0.72rem',
+                        fontSize: '0.8rem',
                         color: 'var(--ink-3)',
                         marginBottom: '0.25rem',
                         padding: '0 0.2rem'
@@ -913,7 +913,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                         border: isMe ? '1px solid var(--accent-line)' : '1px solid var(--rule)',
                         borderRadius: 'var(--radius-md)',
                         padding: '0.75rem 1rem',
-                        fontSize: '0.86rem',
+                        fontSize: '0.94rem',
                         color: 'var(--ink)',
                         lineHeight: 1.5,
                         wordBreak: 'break-word',
@@ -948,7 +948,7 @@ export default function BookDetailsModal({ bookId, onClose, onBookUpdated, onSel
                     className="form-input"
                     style={{
                       padding: '0.65rem 0.9rem',
-                      fontSize: '0.85rem',
+                      fontSize: '0.875rem',
                       borderRadius: 'var(--radius-md)'
                     }}
                   />

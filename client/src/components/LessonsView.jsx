@@ -87,7 +87,7 @@ export default function LessonsView({ onOpenUpload }) {
         <div className="glass-panel" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
           <Film size={40} color="var(--ink-3)" style={{ marginBottom: '1rem' }} />
           <h3 style={{ marginBottom: '0.5rem' }}>Nenhuma aula {category !== 'Todas' ? `em ${category}` : 'ainda'}</h3>
-          <p style={{ color: 'var(--ink-3)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+          <p style={{ color: 'var(--ink-3)', fontSize: '0.94rem', marginBottom: '1.5rem' }}>
             Seja o primeiro a compartilhar um vídeo com o grupo.
           </p>
           <button type="button" className="btn btn-outline" onClick={onOpenUpload}>
@@ -134,19 +134,19 @@ export default function LessonsView({ onOpenUpload }) {
                   <span className="badge badge-signal" style={{ marginBottom: '0.6rem' }}>{lesson.category}</span>
                   <h3 style={{ fontSize: '1.08rem', lineHeight: 1.35, marginBottom: '0.35rem' }}>{lesson.title}</h3>
                   {lesson.description && (
-                    <p className="line-clamp-2" style={{ fontSize: '0.85rem', color: 'var(--ink-2)', marginBottom: '0.85rem' }}>
+                    <p className="line-clamp-2" style={{ fontSize: '0.875rem', color: 'var(--ink-2)', marginBottom: '0.85rem' }}>
                       {lesson.description}
                     </p>
                   )}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginTop: '0.75rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', minWidth: 0 }}>
                       <img src={lesson.uploader_avatar} alt="" style={{ width: 26, height: 26, borderRadius: '50%', objectFit: 'cover' }} />
-                      <span style={{ fontSize: '0.8rem', color: 'var(--ink-2)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      <span style={{ fontSize: '0.875rem', color: 'var(--ink-2)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         {lesson.uploader_name}
                       </span>
                     </div>
                     {ready && (
-                      <span style={{ fontSize: '0.72rem', color: 'var(--accent)', whiteSpace: 'nowrap' }} title={`Original: ${formatBytes(lesson.original_size_bytes)}`}>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--accent)', whiteSpace: 'nowrap' }} title={`Original: ${formatBytes(lesson.original_size_bytes)}`}>
                         {formatBytes(lesson.compressed_size_bytes)}{saved > 0 ? ` · −${saved}%` : ''}
                       </span>
                     )}
@@ -165,7 +165,7 @@ export default function LessonsView({ onOpenUpload }) {
             <div className="modal-header">
               <div style={{ minWidth: 0 }}>
                 <h3 style={{ fontSize: '1.15rem' }}>{playing.title}</h3>
-                <p style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
+                <p style={{ fontSize: '0.875rem', color: 'var(--ink-3)' }}>
                   {playing.category} · por {playing.uploader_name}
                 </p>
               </div>
@@ -176,7 +176,7 @@ export default function LessonsView({ onOpenUpload }) {
             <video src={playing.file_url} controls autoPlay style={{ width: '100%', display: 'block', background: '#000', maxHeight: '70vh' }} />
             {playing.description && (
               <div className="modal-body">
-                <p style={{ color: 'var(--ink-2)', fontSize: '0.92rem', whiteSpace: 'pre-line' }}>{playing.description}</p>
+                <p style={{ color: 'var(--ink-2)', fontSize: '1.0rem', whiteSpace: 'pre-line' }}>{playing.description}</p>
               </div>
             )}
           </div>
@@ -246,7 +246,7 @@ export function NewLessonModal({ onClose, onCreated }) {
         <div className="modal-header">
           <div>
             <h3 style={{ fontSize: '1.2rem' }}>Enviar Aula</h3>
-            <p style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
+            <p style={{ fontSize: '0.875rem', color: 'var(--ink-3)' }}>
               O vídeo é compactado automaticamente após o envio
             </p>
           </div>
@@ -258,7 +258,7 @@ export function NewLessonModal({ onClose, onCreated }) {
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
             {error && (
-              <div style={{ background: 'var(--danger-soft)', color: 'var(--danger)', padding: '0.75rem 1rem', borderRadius: 'var(--radius-md)', fontSize: '0.85rem', marginBottom: '1.25rem' }}>
+              <div style={{ background: 'var(--danger-soft)', color: 'var(--danger)', padding: '0.75rem 1rem', borderRadius: 'var(--radius-md)', fontSize: '0.875rem', marginBottom: '1.25rem' }}>
                 {error}
               </div>
             )}
@@ -284,7 +284,7 @@ export function NewLessonModal({ onClose, onCreated }) {
               <input type="file" accept="video/*" onChange={(e) => setFile(e.target.files[0] || null)} hidden />
               <Film size={26} color="var(--accent)" />
               <span style={{ fontWeight: 600 }}>{file ? file.name : 'Escolher vídeo'}</span>
-              <span style={{ fontSize: '0.78rem', color: 'var(--ink-3)' }}>
+              <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                 {file ? formatBytes(file.size) : 'MP4, MOV, WEBM, MKV ou AVI'}
               </span>
             </label>
@@ -292,7 +292,7 @@ export function NewLessonModal({ onClose, onCreated }) {
             {sending && (
               <div style={{ marginTop: '1.25rem' }}>
                 <div className="progress-track"><div className="progress-bar" style={{ width: `${progress}%` }} /></div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--ink-2)', marginTop: '0.4rem' }}>
+                <div style={{ fontSize: '0.875rem', color: 'var(--ink-2)', marginTop: '0.4rem' }}>
                   {progress < 100 ? `Enviando... ${progress}%` : 'Finalizando...'}
                 </div>
               </div>

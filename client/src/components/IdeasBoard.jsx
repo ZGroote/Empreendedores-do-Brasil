@@ -131,7 +131,7 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
           <p>
             Propostas de parceria, compras conjuntas e projetos. Apoie as que valem a pena e entre na conversa.
           </p>
-          <p style={{ fontSize: '0.88rem', color: 'var(--ink-3)', marginTop: '0.75rem' }}>
+          <p style={{ fontSize: '0.94rem', color: 'var(--ink-3)', marginTop: '0.75rem' }}>
             {stats.ideas} ideias · {stats.comments} comentários · {stats.members} membros
           </p>
         </div>
@@ -171,12 +171,12 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
 
           {/* Ordenação */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--ink-3)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <span style={{ fontSize: '0.875rem', color: 'var(--ink-3)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
               <SlidersHorizontal size={14} /> Ordenar:
             </span>
             <select
               className="form-select"
-              style={{ width: 'auto', padding: '0.55rem 0.85rem', fontSize: '0.85rem' }}
+              style={{ width: 'auto', padding: '0.55rem 0.85rem', fontSize: '0.875rem' }}
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
             >
@@ -230,7 +230,7 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
         }}>
           <Lightbulb size={40} color="var(--accent)" style={{ opacity: 0.6, marginBottom: '1rem' }} />
           <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>Nenhuma ideia encontrada</h3>
-          <p style={{ color: 'var(--ink-3)', maxWidth: '420px', margin: '0 auto 1.5rem', fontSize: '0.9rem' }}>
+          <p style={{ color: 'var(--ink-3)', maxWidth: '420px', margin: '0 auto 1.5rem', fontSize: '0.94rem' }}>
             Não encontramos ideias com os filtros selecionados. Seja o primeiro a propor uma nova iniciativa!
           </p>
           <button type="button" className="btn btn-primary" onClick={onOpenNewIdea}>
@@ -276,10 +276,10 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
                       }}
                     />
                     <div>
-                      <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--ink)' }}>
+                      <div style={{ fontSize: '0.94rem', fontWeight: 700, color: 'var(--ink)' }}>
                         {idea.author.name}
                       </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--accent)' }}>
+                      <div style={{ fontSize: '0.8rem', color: 'var(--accent)' }}>
                         {idea.author.company}
                       </div>
                     </div>
@@ -305,7 +305,7 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
 
                 {/* Descrição Preview */}
                 <p style={{
-                  fontSize: '0.88rem',
+                  fontSize: '0.94rem',
                   color: 'var(--ink-2)',
                   lineHeight: 1.6,
                   marginBottom: '1.25rem',
@@ -324,7 +324,7 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
                     <span
                       key={idx}
                       className="tag-chip"
-                      style={{ fontSize: '0.7rem', padding: '0.15rem 0.55rem' }}
+                      style={{ fontSize: '0.8rem', padding: '0.15rem 0.55rem' }}
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedTag(tag);
@@ -334,7 +334,7 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
                     </span>
                   ))}
                   {idea.tags.length > 3 && (
-                    <span style={{ fontSize: '0.7rem', color: 'var(--ink-3)', alignSelf: 'center' }}>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)', alignSelf: 'center' }}>
                       +{idea.tags.length - 3}
                     </span>
                   )}
@@ -365,7 +365,7 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.4rem',
-                    fontSize: '0.82rem',
+                    fontSize: '0.875rem',
                     color: 'var(--ink-2)'
                   }}>
                     <MessageSquare size={15} color="var(--signal)" />

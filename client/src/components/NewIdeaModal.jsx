@@ -122,7 +122,7 @@ export default function NewIdeaModal({ isOpen, onClose, onIdeaCreated }) {
             </div>
             <div>
               <h3 style={{ fontSize: '1.2rem' }}>Cadastrar Nova Ideia</h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
+              <p style={{ fontSize: '0.875rem', color: 'var(--ink-3)' }}>
                 Compartilhe uma oportunidade ou projeto com os empreendedores
               </p>
             </div>
@@ -143,7 +143,7 @@ export default function NewIdeaModal({ isOpen, onClose, onIdeaCreated }) {
                 borderRadius: 'var(--radius-md)',
                 padding: '0.75rem 1rem',
                 color: 'var(--danger)',
-                fontSize: '0.85rem',
+                fontSize: '0.875rem',
                 marginBottom: '1.25rem'
               }}>
                 {error}
@@ -185,7 +185,7 @@ export default function NewIdeaModal({ isOpen, onClose, onIdeaCreated }) {
                   <span
                     key={tag}
                     className="badge badge-accent"
-                    style={{ fontSize: '0.78rem', cursor: 'pointer', padding: '0.35rem 0.65rem' }}
+                    style={{ fontSize: '0.8rem', cursor: 'pointer', padding: '0.35rem 0.65rem' }}
                     onClick={() => removeTag(tag)}
                     title="Clique para remover"
                   >
@@ -195,7 +195,7 @@ export default function NewIdeaModal({ isOpen, onClose, onIdeaCreated }) {
               </div>
 
               {/* Tags Sugeridas para Clique Rápido */}
-              <div style={{ fontSize: '0.75rem', color: 'var(--ink-3)', marginBottom: '0.4rem' }}>
+              <div style={{ fontSize: '0.8rem', color: 'var(--ink-3)', marginBottom: '0.4rem' }}>
                 Sugestões rápidas:
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '0.75rem' }}>
@@ -207,7 +207,7 @@ export default function NewIdeaModal({ isOpen, onClose, onIdeaCreated }) {
                       type="button"
                       onClick={() => toggleSuggestedTag(tag)}
                       className={`tag-chip ${isSelected ? 'active' : ''}`}
-                      style={{ fontSize: '0.75rem', padding: '0.2rem 0.6rem' }}
+                      style={{ fontSize: '0.8rem', padding: '0.2rem 0.6rem' }}
                     >
                       {isSelected && <Check size={12} style={{ marginRight: '0.25rem' }} />}
                       {tag}
@@ -221,7 +221,7 @@ export default function NewIdeaModal({ isOpen, onClose, onIdeaCreated }) {
                 <input
                   type="text"
                   className="form-input"
-                  style={{ fontSize: '0.85rem', padding: '0.5rem 0.75rem' }}
+                  style={{ fontSize: '0.875rem', padding: '0.5rem 0.75rem' }}
                   placeholder="Ou adicione uma tag customizada..."
                   value={customTag}
                   onChange={(e) => setCustomTag(e.target.value)}
