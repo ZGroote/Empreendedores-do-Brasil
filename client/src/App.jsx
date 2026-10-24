@@ -8,6 +8,8 @@ import KnowledgeHub from './components/KnowledgeHub';
 import BookDetailsModal from './components/BookDetailsModal';
 import NewBookModal from './components/NewBookModal';
 import MemberProfileModal from './components/MemberProfileModal';
+import HomeView from './components/HomeView';
+import Footer from './components/Footer';
 import IdeaDetailsModal from './components/IdeaDetailsModal';
 import NewIdeaModal from './components/NewIdeaModal';
 import NewEventModal from './components/NewEventModal';
@@ -15,7 +17,7 @@ import AuthModal from './components/AuthModal';
 
 function MainApp() {
   const { isAuthModalOpen, setIsAuthModalOpen } = useAuth();
-  const [activeTab, setActiveTab] = useState('library'); // Inicia em 'library' para destacar o novo acervo
+  const [activeTab, setActiveTab] = useState('home'); // Agora inicia na página 'home' institucional
   
   // Modais
   const [selectedIdeaId, setSelectedIdeaId] = useState(null);
@@ -44,6 +46,15 @@ function MainApp() {
 
       {/* Conteúdo Principal */}
       <main className="main-content">
+        {activeTab === 'home' && (
+          <HomeView
+            onNavigateTab={(tab) => setActiveTab(tab)}
+            onSelectBook={(id) => setSelectedBookId(id)}
+            onSelectIdea={(id) => setSelectedIdeaId(id)}
+            onOpenAuth={() => setIsAuthModalOpen(true)}
+          />
+        )}
+
         {activeTab === 'library' && (
           <KnowledgeHub
             key={`library-${refreshKey}`}
@@ -76,25 +87,8 @@ function MainApp() {
         )}
       </main>
 
-      {/* Footer Executivo */}
-      <footer style={{
-        borderTop: '1px solid var(--border-subtle)',
-        background: 'rgba(7, 10, 16, 0.95)',
-        padding: '2rem 1.5rem',
-        marginTop: 'auto',
-        fontSize: '0.85rem',
-        color: 'var(--text-dim)',
-        textAlign: 'center'
-      }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
-          <div>
-            <strong style={{ color: 'var(--text-main)' }}>Empreendedores do Brasil</strong> — Hub de Ideias, Dossiês de Conhecimento e Encontros
-          </div>
-          <div>
-            Projeto autônomo com SQLite local integrado • Sem dependências de contas externas
-          </div>
-        </div>
-      </footer>
+      {/* Footer Completo de Site Real */}
+      <Footer onNavigateTab={(tab) => setActiveTab(tab)} />
 
       {/* Modais Globais */}
       {selectedBookId && (
