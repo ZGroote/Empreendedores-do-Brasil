@@ -117,6 +117,20 @@ db.exec(`
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(book_id, user_id)
   );
+
+  -- Aulas em vídeo por categoria (status: 'processing' enquanto o ffmpeg comprime, depois 'ready')
+  CREATE TABLE IF NOT EXISTS lessons (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT,
+    category TEXT NOT NULL,
+    file_url TEXT NOT NULL,
+    original_size_bytes INTEGER DEFAULT 0,
+    compressed_size_bytes INTEGER DEFAULT 0,
+    status TEXT DEFAULT 'processing',
+    uploader_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
 `);
 
 module.exports = db;

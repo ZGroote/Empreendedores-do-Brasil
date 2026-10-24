@@ -125,7 +125,7 @@ export default function EventsCalendar({ onOpenNewEvent }) {
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
             <span className="badge badge-gold">Agenda & Conexão ao Vivo</span>
           </div>
-          <h1 style={{ fontSize: '2.1rem', lineHeight: 1.2 }}>
+          <h1 style={{ fontSize: 'clamp(1.6rem, 5vw, 2.1rem)', lineHeight: 1.2 }}>
             Reuniões & Palestras <span className="text-gradient-gold">Internas</span>
           </h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '1rem', marginTop: '0.5rem' }}>
@@ -153,7 +153,7 @@ export default function EventsCalendar({ onOpenNewEvent }) {
         gap: '1rem',
         marginBottom: '1.75rem'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
           <button
             type="button"
             className={`btn btn-sm ${filterType === 'all' ? 'btn-gold' : 'btn-secondary'}`}
@@ -220,28 +220,15 @@ export default function EventsCalendar({ onOpenNewEvent }) {
             return (
               <div
                 key={eventItem.id}
-                className="glass-panel"
+                className="glass-panel event-card"
                 style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'stretch',
                   overflow: 'hidden',
                   position: 'relative',
                   borderLeft: isTalk ? '4px solid var(--gold-primary)' : '4px solid var(--blue-primary)'
                 }}
               >
                 {/* Bloco de Data e Horário em Destaque */}
-                <div style={{
-                  padding: '1.75rem 1.5rem',
-                  background: 'rgba(11, 16, 26, 0.6)',
-                  borderRight: '1px solid var(--border-subtle)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  minWidth: '130px',
-                  textAlign: 'center'
-                }}>
+                <div className="event-date">
                   <div style={{ fontSize: '0.8rem', fontWeight: 700, color: isTalk ? 'var(--gold-light)' : 'var(--blue-light)', textTransform: 'uppercase' }}>
                     {month}
                   </div>
@@ -255,10 +242,10 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                 </div>
 
                 {/* Conteúdo Central do Evento */}
-                <div style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1rem' }}>
+                <div style={{ padding: '1.5rem', flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1rem' }}>
                   <div>
                     {/* Header: Tipo de Evento + Duração */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.65rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.65rem', flexWrap: 'wrap' }}>
                       <span className={`badge ${isTalk ? 'badge-gold' : 'badge-blue'}`}>
                         {isTalk ? <Mic size={12} /> : <Users size={12} />}
                         {isTalk ? 'Palestra Interna (Talk)' : 'Reunião Estratégica'}
