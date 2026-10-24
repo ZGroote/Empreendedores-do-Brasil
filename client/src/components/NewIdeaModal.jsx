@@ -112,17 +112,17 @@ export default function NewIdeaModal({ isOpen, onClose, onIdeaCreated }) {
               width: 34,
               height: 34,
               borderRadius: 'var(--radius-sm)',
-              background: 'var(--gold-bg-subtle)',
-              border: '1px solid var(--gold-border)',
+              background: 'var(--accent-soft)',
+              border: '1px solid var(--accent-line)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center'
             }}>
-              <Lightbulb size={18} color="var(--gold-light)" />
+              <Lightbulb size={18} color="var(--accent)" />
             </div>
             <div>
               <h3 style={{ fontSize: '1.2rem' }}>Cadastrar Nova Ideia</h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>
+              <p style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                 Compartilhe uma oportunidade ou projeto com os empreendedores
               </p>
             </div>
@@ -138,11 +138,11 @@ export default function NewIdeaModal({ isOpen, onClose, onIdeaCreated }) {
             
             {error && (
               <div style={{
-                background: 'rgba(244, 63, 94, 0.12)',
-                border: '1px solid rgba(244, 63, 94, 0.3)',
+                background: 'var(--danger-soft)',
+                border: '1px solid var(--danger-soft)',
                 borderRadius: 'var(--radius-md)',
                 padding: '0.75rem 1rem',
-                color: '#FDA4AF',
+                color: 'var(--danger)',
                 fontSize: '0.85rem',
                 marginBottom: '1.25rem'
               }}>
@@ -184,7 +184,7 @@ export default function NewIdeaModal({ isOpen, onClose, onIdeaCreated }) {
                 {tags.map(tag => (
                   <span
                     key={tag}
-                    className="badge badge-gold"
+                    className="badge badge-accent"
                     style={{ fontSize: '0.78rem', cursor: 'pointer', padding: '0.35rem 0.65rem' }}
                     onClick={() => removeTag(tag)}
                     title="Clique para remover"
@@ -195,7 +195,7 @@ export default function NewIdeaModal({ isOpen, onClose, onIdeaCreated }) {
               </div>
 
               {/* Tags Sugeridas para Clique Rápido */}
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '0.4rem' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--ink-3)', marginBottom: '0.4rem' }}>
                 Sugestões rápidas:
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '0.75rem' }}>
@@ -260,7 +260,7 @@ export default function NewIdeaModal({ isOpen, onClose, onIdeaCreated }) {
             <button type="button" className="btn btn-secondary" onClick={onClose}>
               Cancelar
             </button>
-            <button type="submit" className="btn btn-gold" disabled={loading}>
+            <button type="submit" className="btn btn-primary" disabled={loading}>
               {loading ? 'Cadastrando...' : 'Publicar Ideia no Mural'}
             </button>
           </div>

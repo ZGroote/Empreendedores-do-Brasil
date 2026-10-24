@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { X, Lock, Mail, User, Building, Briefcase, Sparkles, ArrowRight } from 'lucide-react';
+import { X, Lock, Mail, User, Building, Briefcase, ArrowRight } from 'lucide-react';
 
 export default function AuthModal({ isOpen, onClose }) {
   const { login, register, loginAsDemo, demoAccounts } = useAuth();
@@ -58,9 +58,9 @@ export default function AuthModal({ isOpen, onClose }) {
         <div className="modal-header">
           <div>
             <h3 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span className="text-gradient-gold">Empreendedores do Brasil</span>
+              <span className="em-accent">Empreendedores do Brasil</span>
             </h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-dim)', marginTop: '0.2rem' }}>
+            <p style={{ fontSize: '0.85rem', color: 'var(--ink-3)', marginTop: '0.2rem' }}>
               {tab === 'login' ? 'Acesse sua conta para interagir e agendar' : 'Junte-se à rede exclusiva de fundadores'}
             </p>
           </div>
@@ -72,8 +72,8 @@ export default function AuthModal({ isOpen, onClose }) {
         {/* Abas de Troca Login / Registro */}
         <div style={{
           display: 'flex',
-          borderBottom: '1px solid var(--border-subtle)',
-          background: 'rgba(11, 16, 26, 0.4)'
+          borderBottom: '1px solid var(--rule)',
+          background: 'var(--surface)'
         }}>
           <button
             type="button"
@@ -83,8 +83,8 @@ export default function AuthModal({ isOpen, onClose }) {
               padding: '0.85rem',
               background: 'transparent',
               border: 'none',
-              borderBottom: tab === 'login' ? '2px solid var(--gold-primary)' : '2px solid transparent',
-              color: tab === 'login' ? 'var(--gold-light)' : 'var(--text-dim)',
+              borderBottom: tab === 'login' ? '2px solid var(--accent)' : '2px solid transparent',
+              color: tab === 'login' ? 'var(--accent)' : 'var(--ink-3)',
               fontWeight: 600,
               fontSize: '0.9rem',
               cursor: 'pointer',
@@ -101,8 +101,8 @@ export default function AuthModal({ isOpen, onClose }) {
               padding: '0.85rem',
               background: 'transparent',
               border: 'none',
-              borderBottom: tab === 'register' ? '2px solid var(--gold-primary)' : '2px solid transparent',
-              color: tab === 'register' ? 'var(--gold-light)' : 'var(--text-dim)',
+              borderBottom: tab === 'register' ? '2px solid var(--accent)' : '2px solid transparent',
+              color: tab === 'register' ? 'var(--accent)' : 'var(--ink-3)',
               fontWeight: 600,
               fontSize: '0.9rem',
               cursor: 'pointer',
@@ -118,11 +118,11 @@ export default function AuthModal({ isOpen, onClose }) {
           {/* Mensagem de Erro */}
           {error && (
             <div style={{
-              background: 'rgba(244, 63, 94, 0.12)',
-              border: '1px solid rgba(244, 63, 94, 0.3)',
+              background: 'var(--danger-soft)',
+              border: '1px solid var(--danger-soft)',
               borderRadius: 'var(--radius-md)',
               padding: '0.75rem 1rem',
-              color: '#FDA4AF',
+              color: 'var(--danger)',
               fontSize: '0.85rem',
               marginBottom: '1.25rem'
             }}>
@@ -132,15 +132,14 @@ export default function AuthModal({ isOpen, onClose }) {
 
           {/* Atalho Demo - Muito prático para testar sem precisar digitar */}
           <div style={{
-            background: 'rgba(212, 175, 55, 0.05)',
-            border: '1px dashed var(--gold-border)',
+            background: 'var(--accent-soft)',
+            border: '1px dashed var(--accent-line)',
             borderRadius: 'var(--radius-md)',
             padding: '1rem',
             marginBottom: '1.5rem'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', fontWeight: 600, color: 'var(--gold-light)', marginBottom: '0.75rem' }}>
-              <Sparkles size={14} />
-              Acesso Rápido de Teste (1 Clique):
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', fontWeight: 600, color: 'var(--accent)', marginBottom: '0.75rem' }}>
+              Contas de teste (entrar com 1 clique)
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
               {demoAccounts.slice(0, 3).map((demo) => (
@@ -154,22 +153,22 @@ export default function AuthModal({ isOpen, onClose }) {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     padding: '0.5rem 0.75rem',
-                    background: 'rgba(16, 24, 40, 0.6)',
-                    border: '1px solid var(--border-subtle)',
+                    background: 'var(--surface)',
+                    border: '1px solid var(--rule)',
                     borderRadius: 'var(--radius-sm)',
-                    color: 'var(--text-main)',
+                    color: 'var(--ink)',
                     fontSize: '0.82rem',
                     cursor: 'pointer',
                     textAlign: 'left',
                     transition: 'var(--transition)'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'var(--gold-border)';
-                    e.currentTarget.style.background = 'rgba(212, 175, 55, 0.1)';
+                    e.currentTarget.style.borderColor = 'var(--accent-line)';
+                    e.currentTarget.style.background = 'var(--accent-soft)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'var(--border-subtle)';
-                    e.currentTarget.style.background = 'rgba(16, 24, 40, 0.6)';
+                    e.currentTarget.style.borderColor = 'var(--rule)';
+                    e.currentTarget.style.background = 'var(--surface)';
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
@@ -180,10 +179,10 @@ export default function AuthModal({ isOpen, onClose }) {
                     />
                     <div>
                       <span style={{ fontWeight: 600 }}>{demo.name}</span>
-                      <span style={{ color: 'var(--text-dim)', marginLeft: '0.4rem', fontSize: '0.75rem' }}>({demo.company})</span>
+                      <span style={{ color: 'var(--ink-3)', marginLeft: '0.4rem', fontSize: '0.75rem' }}>({demo.company})</span>
                     </div>
                   </div>
-                  <ArrowRight size={14} color="var(--gold-light)" />
+                  <ArrowRight size={14} color="var(--accent)" />
                 </button>
               ))}
             </div>
@@ -196,7 +195,7 @@ export default function AuthModal({ isOpen, onClose }) {
                 <div className="form-group">
                   <label className="form-label">Nome Completo</label>
                   <div style={{ position: 'relative' }}>
-                    <User size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+                    <User size={16} color="var(--ink-3)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
                     <input
                       type="text"
                       className="form-input"
@@ -213,7 +212,7 @@ export default function AuthModal({ isOpen, onClose }) {
                   <div className="form-group">
                     <label className="form-label">Sua Empresa / Startup</label>
                     <div style={{ position: 'relative' }}>
-                      <Building size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+                      <Building size={16} color="var(--ink-3)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
                       <input
                         type="text"
                         className="form-input"
@@ -228,7 +227,7 @@ export default function AuthModal({ isOpen, onClose }) {
                   <div className="form-group">
                     <label className="form-label">Seu Cargo / Atuação</label>
                     <div style={{ position: 'relative' }}>
-                      <Briefcase size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+                      <Briefcase size={16} color="var(--ink-3)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
                       <input
                         type="text"
                         className="form-input"
@@ -257,7 +256,7 @@ export default function AuthModal({ isOpen, onClose }) {
             <div className="form-group">
               <label className="form-label">E-mail Corporativo</label>
               <div style={{ position: 'relative' }}>
-                <Mail size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+                <Mail size={16} color="var(--ink-3)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
                 <input
                   type="email"
                   className="form-input"
@@ -273,7 +272,7 @@ export default function AuthModal({ isOpen, onClose }) {
             <div className="form-group">
               <label className="form-label">Senha de Acesso</label>
               <div style={{ position: 'relative' }}>
-                <Lock size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+                <Lock size={16} color="var(--ink-3)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
                 <input
                   type="password"
                   className="form-input"
@@ -288,7 +287,7 @@ export default function AuthModal({ isOpen, onClose }) {
 
             <button
               type="submit"
-              className="btn btn-gold"
+              className="btn btn-primary"
               style={{ width: '100%', marginTop: '0.75rem', height: '46px' }}
               disabled={loading}
             >

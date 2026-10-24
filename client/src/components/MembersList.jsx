@@ -36,28 +36,18 @@ export default function MembersList({ onSelectTag, onSelectMember }) {
 
   return (
     <div>
-      {/* Header */}
-      <div style={{
-        background: 'linear-gradient(135deg, rgba(16, 24, 40, 0.8) 0%, rgba(13, 19, 31, 0.9) 100%)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: 'var(--radius-xl)',
-        padding: '2.25rem 2rem',
-        marginBottom: '2rem',
-        boxShadow: 'var(--shadow-md)'
-      }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
-          <span className="badge badge-gold">Diretório de Fundadores & Autores</span>
+      <header className="page-header">
+        <div>
+          <span className="badge badge-accent">Membros</span>
+          <h1>Quem faz <span className="em-accent">parte</span></h1>
+          <p>
+            Fundadores e executivos do grupo. Abra um perfil para ver o que cada um já compartilhou.
+          </p>
         </div>
-        <h1 style={{ fontSize: 'clamp(1.6rem, 5vw, 2.1rem)', lineHeight: 1.2 }}>
-          Membros do <span className="text-gradient-gold">Empreendedores do Brasil</span>
-        </h1>
-        <p style={{ color: 'var(--text-muted)', fontSize: '1rem', maxWidth: '720px', marginTop: '0.4rem' }}>
-          Conheça os líderes, fundadores e tomadores de decisão que compõem o grupo. Clique no perfil para conferir seus dossiês e materiais compartilhados.
-        </p>
-      </div>
+      </header>
 
       {loading ? (
-        <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-dim)' }}>
+        <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--ink-3)' }}>
           Carregando membros da rede...
         </div>
       ) : (
@@ -92,18 +82,18 @@ export default function MembersList({ onSelectTag, onSelectMember }) {
                     height: 54,
                     borderRadius: '50%',
                     objectFit: 'cover',
-                    border: '2px solid var(--gold-border)'
+                    border: '2px solid var(--accent-line)'
                   }}
                 />
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <h3 style={{ fontSize: '1.05rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'var(--text-main)' }}>
+                  <h3 style={{ fontSize: '1.05rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'var(--ink)' }}>
                     {m.name}
                   </h3>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--gold-light)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                     <Building size={13} />
                     <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{m.company}</span>
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--ink-3)' }}>
                     {m.role}
                   </div>
                 </div>
@@ -112,9 +102,9 @@ export default function MembersList({ onSelectTag, onSelectMember }) {
               {/* Bio */}
               <p style={{
                 fontSize: '0.85rem',
-                color: 'var(--text-muted)',
+                color: 'var(--ink-2)',
                 lineHeight: 1.5,
-                background: 'rgba(255, 255, 255, 0.02)',
+                background: 'var(--fill)',
                 padding: '0.75rem',
                 borderRadius: 'var(--radius-sm)',
                 minHeight: '65px'
@@ -129,7 +119,7 @@ export default function MembersList({ onSelectTag, onSelectMember }) {
                 onClick={() => onSelectMember && onSelectMember(m.id)}
                 style={{ width: '100%', fontSize: '0.8rem', justifyContent: 'center' }}
               >
-                Ver Perfil & Dossiês Compartilhados <ArrowRight size={13} />
+                Ver perfil <ArrowRight size={13} />
               </button>
 
               {/* Estatísticas de Contribuição */}
@@ -138,17 +128,17 @@ export default function MembersList({ onSelectTag, onSelectMember }) {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 paddingTop: '0.5rem',
-                borderTop: '1px solid var(--border-subtle)',
+                borderTop: '1px solid var(--rule)',
                 fontSize: '0.78rem',
-                color: 'var(--text-dim)'
+                color: 'var(--ink-3)'
               }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                  <Lightbulb size={13} color="var(--gold-light)" />
+                  <Lightbulb size={13} color="var(--accent)" />
                   <strong>{m.ideas_count}</strong> {m.ideas_count === 1 ? 'ideia' : 'ideias'}
                 </span>
 
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                  <Calendar size={13} color="var(--blue-light)" />
+                  <Calendar size={13} color="var(--signal)" />
                   <strong>{m.events_attended_count}</strong> {m.events_attended_count === 1 ? 'evento' : 'eventos'}
                 </span>
 
@@ -160,7 +150,7 @@ export default function MembersList({ onSelectTag, onSelectMember }) {
                     style={{
                       background: 'transparent',
                       border: 'none',
-                      color: 'var(--gold-light)',
+                      color: 'var(--accent)',
                       fontSize: '0.75rem',
                       fontWeight: 600,
                       cursor: 'pointer',
