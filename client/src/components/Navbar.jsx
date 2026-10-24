@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import {
-  Crown,
   BookOpen,
   Lightbulb,
   Calendar,
   Plus,
   ChevronDown,
   LogOut,
-  Sparkles,
   Building,
   Menu,
   X,
@@ -17,10 +15,10 @@ import {
 
 const navItems = [
   { id: 'home', label: 'Início' },
-  { id: 'library', label: 'Acervo & Dossiês' },
+  { id: 'library', label: 'Biblioteca' },
   { id: 'lessons', label: 'Aulas' },
-  { id: 'ideas', label: 'Banco de Ideias' },
-  { id: 'events', label: 'Palestras & Encontros' },
+  { id: 'ideas', label: 'Ideias' },
+  { id: 'events', label: 'Agenda' },
   { id: 'members', label: 'Membros' }
 ];
 
@@ -46,10 +44,10 @@ export default function Navbar({
   }
 
   const createActions = [
-    { label: 'Novo Dossiê / Livro', icon: <BookOpen size={15} color="var(--gold-light)" />, run: onOpenNewBook },
-    { label: 'Enviar Aula em Vídeo', icon: <Film size={15} color="#34D399" />, run: onOpenNewLesson },
-    { label: 'Propor Ideia', icon: <Lightbulb size={15} color="var(--blue-light)" />, run: onOpenNewIdea },
-    { label: 'Agendar Palestra/Reunião', icon: <Calendar size={15} color="#C084FC" />, run: onOpenNewEvent }
+    { label: 'Novo Dossiê / Livro', icon: <BookOpen size={15} color="var(--accent)" />, run: onOpenNewBook },
+    { label: 'Enviar Aula em Vídeo', icon: <Film size={15} color="var(--accent)" />, run: onOpenNewLesson },
+    { label: 'Propor Ideia', icon: <Lightbulb size={15} color="var(--signal)" />, run: onOpenNewIdea },
+    { label: 'Agendar Palestra/Reunião', icon: <Calendar size={15} color="var(--signal)" />, run: onOpenNewEvent }
   ];
 
   return (
@@ -59,15 +57,7 @@ export default function Navbar({
 
       <div className="navbar-inner">
         <button type="button" className="navbar-brand" onClick={() => go('home')} aria-label="Ir para o início">
-          <span className="navbar-logo">
-            <Crown size={20} color="var(--gold-primary)" />
-          </span>
-          <span>
-            <span className="navbar-title">
-              EMPREENDEDORES <span className="text-gradient-gold">DO BRASIL</span>
-            </span>
-            <span className="navbar-subtitle">Comunidade Estratégica</span>
-          </span>
+          <span className="navbar-title">Empreendedores <em>do Brasil</em></span>
         </button>
 
         <nav className={`navbar-links ${openMenu === 'mobile' ? 'open' : ''}`}>
@@ -88,7 +78,7 @@ export default function Navbar({
           <div className="dropdown-anchor">
             <button
               type="button"
-              className="btn btn-gold btn-sm navbar-publish"
+              className="btn btn-primary btn-sm"
               aria-expanded={openMenu === 'create'}
               onClick={() => toggle('create')}
             >
@@ -127,22 +117,22 @@ export default function Navbar({
               >
                 <img src={user.avatar} alt={user.name} />
                 <span className="hide-sm">{user.name.split(' ')[0]}</span>
-                <ChevronDown size={13} color="var(--text-dim)" />
+                <ChevronDown size={13} color="var(--ink-3)" />
               </button>
 
               {openMenu === 'profile' && (
                 <div className="dropdown-menu" style={{ width: 250, padding: '0.75rem' }}>
-                  <div style={{ padding: '0.4rem 0.5rem 0.75rem', borderBottom: '1px solid var(--border-subtle)' }}>
-                    <div style={{ fontWeight: 700, fontSize: '0.88rem' }}>{user.name}</div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>{user.email}</div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--gold-light)', marginTop: '0.2rem' }}>
+                  <div style={{ padding: '0.4rem 0.5rem 0.75rem', borderBottom: '1px solid var(--rule)' }}>
+                    <div style={{ fontWeight: 700, fontSize: '0.94rem' }}>{user.name}</div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>{user.email}</div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--accent)', marginTop: '0.2rem' }}>
                       {user.role} @ {user.company}
                     </div>
                   </div>
 
                   <button
                     type="button"
-                    className="btn btn-outline-gold btn-sm"
+                    className="btn btn-outline btn-sm"
                     style={{ width: '100%', margin: '0.6rem 0 0.25rem', justifyContent: 'flex-start' }}
                     onClick={() => {
                       close();
@@ -155,7 +145,6 @@ export default function Navbar({
 
                   <div style={{ padding: '0.5rem 0.25rem 0.25rem' }}>
                     <div className="dropdown-label">
-                      <Sparkles size={11} color="var(--gold-light)" />
                       Simular outro membro
                     </div>
                     {demoAccounts.filter(d => d.email !== user.email).slice(0, 3).map(demo => (
@@ -176,11 +165,11 @@ export default function Navbar({
                     ))}
                   </div>
 
-                  <div style={{ borderTop: '1px solid var(--border-subtle)', marginTop: '0.5rem', paddingTop: '0.4rem' }}>
+                  <div style={{ borderTop: '1px solid var(--rule)', marginTop: '0.5rem', paddingTop: '0.4rem' }}>
                     <button
                       type="button"
                       className="dropdown-item"
-                      style={{ color: 'var(--rose-primary)' }}
+                      style={{ color: 'var(--danger)' }}
                       onClick={() => {
                         logout();
                         close();
@@ -194,7 +183,7 @@ export default function Navbar({
               )}
             </div>
           ) : (
-            <button type="button" className="btn btn-outline-gold btn-sm" onClick={() => setIsAuthModalOpen(true)}>
+            <button type="button" className="btn btn-outline btn-sm" onClick={() => setIsAuthModalOpen(true)}>
               Entrar
             </button>
           )}

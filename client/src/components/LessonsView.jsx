@@ -52,21 +52,19 @@ export default function LessonsView({ onOpenUpload }) {
   return (
     <div>
       {/* Header */}
-      <div className="page-header">
+      <header className="page-header">
         <div>
-          <span className="badge badge-gold" style={{ marginBottom: '0.5rem' }}>Aulas & Treinamentos</span>
-          <h1 style={{ fontSize: 'clamp(1.6rem, 5vw, 2.1rem)', lineHeight: 1.2 }}>
-            Aulas em <span className="text-gradient-gold">Vídeo</span>
-          </h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '1rem', maxWidth: '640px', marginTop: '0.4rem' }}>
+          <span className="badge badge-accent">Aulas</span>
+          <h1>Aulas em <span className="em-accent">vídeo</span></h1>
+          <p>
             Grave o que você sabe e compartilhe com o grupo. Os vídeos são compactados automaticamente para carregar rápido e ocupar pouco espaço.
           </p>
         </div>
-        <button type="button" className="btn btn-gold btn-lg" onClick={onOpenUpload}>
+        <button type="button" className="btn btn-primary btn-lg" onClick={onOpenUpload}>
           <Upload size={18} />
-          <span>Enviar Aula</span>
+          <span>Enviar aula</span>
         </button>
-      </div>
+      </header>
 
       {/* Categorias */}
       <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', paddingBottom: '0.4rem', marginBottom: '1.5rem' }}>
@@ -84,15 +82,15 @@ export default function LessonsView({ onOpenUpload }) {
       </div>
 
       {loading ? (
-        <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-dim)' }}>Carregando aulas...</div>
+        <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--ink-3)' }}>Carregando aulas...</div>
       ) : lessons.length === 0 ? (
         <div className="glass-panel" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
-          <Film size={40} color="var(--text-dim)" style={{ marginBottom: '1rem' }} />
+          <Film size={40} color="var(--ink-3)" style={{ marginBottom: '1rem' }} />
           <h3 style={{ marginBottom: '0.5rem' }}>Nenhuma aula {category !== 'Todas' ? `em ${category}` : 'ainda'}</h3>
-          <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+          <p style={{ color: 'var(--ink-3)', fontSize: '0.94rem', marginBottom: '1.5rem' }}>
             Seja o primeiro a compartilhar um vídeo com o grupo.
           </p>
-          <button type="button" className="btn btn-outline-gold" onClick={onOpenUpload}>
+          <button type="button" className="btn btn-outline" onClick={onOpenUpload}>
             <Upload size={16} /> Enviar Aula
           </button>
         </div>
@@ -133,22 +131,22 @@ export default function LessonsView({ onOpenUpload }) {
                 </div>
 
                 <div style={{ padding: '1.1rem 1.25rem 1.25rem' }}>
-                  <span className="badge badge-blue" style={{ marginBottom: '0.6rem' }}>{lesson.category}</span>
+                  <span className="badge badge-signal" style={{ marginBottom: '0.6rem' }}>{lesson.category}</span>
                   <h3 style={{ fontSize: '1.08rem', lineHeight: 1.35, marginBottom: '0.35rem' }}>{lesson.title}</h3>
                   {lesson.description && (
-                    <p className="line-clamp-2" style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.85rem' }}>
+                    <p className="line-clamp-2" style={{ fontSize: '0.875rem', color: 'var(--ink-2)', marginBottom: '0.85rem' }}>
                       {lesson.description}
                     </p>
                   )}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginTop: '0.75rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', minWidth: 0 }}>
                       <img src={lesson.uploader_avatar} alt="" style={{ width: 26, height: 26, borderRadius: '50%', objectFit: 'cover' }} />
-                      <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      <span style={{ fontSize: '0.875rem', color: 'var(--ink-2)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         {lesson.uploader_name}
                       </span>
                     </div>
                     {ready && (
-                      <span style={{ fontSize: '0.72rem', color: '#34D399', whiteSpace: 'nowrap' }} title={`Original: ${formatBytes(lesson.original_size_bytes)}`}>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--accent)', whiteSpace: 'nowrap' }} title={`Original: ${formatBytes(lesson.original_size_bytes)}`}>
                         {formatBytes(lesson.compressed_size_bytes)}{saved > 0 ? ` · −${saved}%` : ''}
                       </span>
                     )}
@@ -167,7 +165,7 @@ export default function LessonsView({ onOpenUpload }) {
             <div className="modal-header">
               <div style={{ minWidth: 0 }}>
                 <h3 style={{ fontSize: '1.15rem' }}>{playing.title}</h3>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>
+                <p style={{ fontSize: '0.875rem', color: 'var(--ink-3)' }}>
                   {playing.category} · por {playing.uploader_name}
                 </p>
               </div>
@@ -178,7 +176,7 @@ export default function LessonsView({ onOpenUpload }) {
             <video src={playing.file_url} controls autoPlay style={{ width: '100%', display: 'block', background: '#000', maxHeight: '70vh' }} />
             {playing.description && (
               <div className="modal-body">
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', whiteSpace: 'pre-line' }}>{playing.description}</p>
+                <p style={{ color: 'var(--ink-2)', fontSize: '1.0rem', whiteSpace: 'pre-line' }}>{playing.description}</p>
               </div>
             )}
           </div>
@@ -248,7 +246,7 @@ export function NewLessonModal({ onClose, onCreated }) {
         <div className="modal-header">
           <div>
             <h3 style={{ fontSize: '1.2rem' }}>Enviar Aula</h3>
-            <p style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>
+            <p style={{ fontSize: '0.875rem', color: 'var(--ink-3)' }}>
               O vídeo é compactado automaticamente após o envio
             </p>
           </div>
@@ -260,7 +258,7 @@ export function NewLessonModal({ onClose, onCreated }) {
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
             {error && (
-              <div style={{ background: 'var(--rose-bg)', color: 'var(--rose-primary)', padding: '0.75rem 1rem', borderRadius: 'var(--radius-md)', fontSize: '0.85rem', marginBottom: '1.25rem' }}>
+              <div style={{ background: 'var(--danger-soft)', color: 'var(--danger)', padding: '0.75rem 1rem', borderRadius: 'var(--radius-md)', fontSize: '0.875rem', marginBottom: '1.25rem' }}>
                 {error}
               </div>
             )}
@@ -284,9 +282,9 @@ export function NewLessonModal({ onClose, onCreated }) {
 
             <label className="file-drop">
               <input type="file" accept="video/*" onChange={(e) => setFile(e.target.files[0] || null)} hidden />
-              <Film size={26} color="var(--gold-light)" />
+              <Film size={26} color="var(--accent)" />
               <span style={{ fontWeight: 600 }}>{file ? file.name : 'Escolher vídeo'}</span>
-              <span style={{ fontSize: '0.78rem', color: 'var(--text-dim)' }}>
+              <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                 {file ? formatBytes(file.size) : 'MP4, MOV, WEBM, MKV ou AVI'}
               </span>
             </label>
@@ -294,7 +292,7 @@ export function NewLessonModal({ onClose, onCreated }) {
             {sending && (
               <div style={{ marginTop: '1.25rem' }}>
                 <div className="progress-track"><div className="progress-bar" style={{ width: `${progress}%` }} /></div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.4rem' }}>
+                <div style={{ fontSize: '0.875rem', color: 'var(--ink-2)', marginTop: '0.4rem' }}>
                   {progress < 100 ? `Enviando... ${progress}%` : 'Finalizando...'}
                 </div>
               </div>
@@ -303,7 +301,7 @@ export function NewLessonModal({ onClose, onCreated }) {
 
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary" onClick={onClose} disabled={sending}>Cancelar</button>
-            <button type="submit" className="btn btn-gold" disabled={sending}>
+            <button type="submit" className="btn btn-primary" disabled={sending}>
               <Upload size={16} /> {sending ? 'Enviando...' : 'Enviar Aula'}
             </button>
           </div>

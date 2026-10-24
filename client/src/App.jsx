@@ -72,8 +72,6 @@ function MainApp() {
         {activeTab === 'home' && (
           <HomeView
             onNavigateTab={(tab) => setActiveTab(tab)}
-            onSelectBook={(id) => setSelectedBookId(id)}
-            onSelectIdea={(id) => setSelectedIdeaId(id)}
             onOpenAuth={() => setIsAuthModalOpen(true)}
           />
         )}

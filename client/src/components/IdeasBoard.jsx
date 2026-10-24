@@ -124,115 +124,26 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
 
   return (
     <div>
-      {/* Hero Banner Executivo com Métricas */}
-      <div style={{
-        background: 'linear-gradient(135deg, rgba(16, 24, 40, 0.8) 0%, rgba(13, 19, 31, 0.9) 100%)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: 'var(--radius-xl)',
-        padding: '2.25rem 2rem',
-        marginBottom: '2rem',
-        boxShadow: 'var(--shadow-md)',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
-        {/* Efeito Glow Dourado Sutil no Fundo */}
-        <div style={{
-          position: 'absolute',
-          top: '-30%',
-          right: '-10%',
-          width: '320px',
-          height: '320px',
-          background: 'radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%)',
-          pointerEvents: 'none'
-        }} />
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-          <div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
-              <span className="badge badge-gold">Mural de Inovações & Negócios</span>
-            </div>
-            <h1 style={{ fontSize: 'clamp(1.6rem, 5vw, 2.1rem)', lineHeight: 1.2 }}>
-              Banco de Ideias dos <span className="text-gradient-gold">Empreendedores</span>
-            </h1>
-            <p style={{ color: 'var(--text-muted)', fontSize: '1rem', maxWidth: '720px', marginTop: '0.4rem' }}>
-              Proponha parcerias estratégicas, compartilhe ideias disruptivas com filtros por tags e debata soluções práticas com os membros do grupo.
-            </p>
-          </div>
-
-          {/* Cards de Métricas em Tempo Real */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(160px, 100%), 1fr))',
-            gap: '1rem',
-            paddingTop: '0.5rem'
-          }}>
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: 'var(--radius-md)',
-              padding: '0.85rem 1rem'
-            }}>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', textTransform: 'uppercase', fontWeight: 600 }}>
-                Ideias Propostas
-              </div>
-              <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--gold-light)', marginTop: '0.2rem' }}>
-                {stats.ideas}
-              </div>
-            </div>
-
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: 'var(--radius-md)',
-              padding: '0.85rem 1rem'
-            }}>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', textTransform: 'uppercase', fontWeight: 600 }}>
-                Discussões Ativas
-              </div>
-              <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--blue-light)', marginTop: '0.2rem' }}>
-                {stats.comments}
-              </div>
-            </div>
-
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: 'var(--radius-md)',
-              padding: '0.85rem 1rem'
-            }}>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', textTransform: 'uppercase', fontWeight: 600 }}>
-                Reuniões & Palestras
-              </div>
-              <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#34D399', marginTop: '0.2rem' }}>
-                {stats.events}
-              </div>
-            </div>
-
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: 'var(--radius-md)',
-              padding: '0.85rem 1rem'
-            }}>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', textTransform: 'uppercase', fontWeight: 600 }}>
-                Membros Conectados
-              </div>
-              <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#F8FAFC', marginTop: '0.2rem' }}>
-                {stats.members}
-              </div>
-            </div>
-          </div>
-
+      <header className="page-header">
+        <div>
+          <span className="badge badge-accent">Banco de ideias</span>
+          <h1>Ideias em <span className="em-accent">discussão</span></h1>
+          <p>
+            Propostas de parceria, compras conjuntas e projetos. Apoie as que valem a pena e entre na conversa.
+          </p>
+          <p style={{ fontSize: '0.94rem', color: 'var(--ink-3)', marginTop: '0.75rem' }}>
+            {stats.ideas} ideias · {stats.comments} comentários · {stats.members} membros
+          </p>
         </div>
-      </div>
+        <button type="button" className="btn btn-primary btn-lg" onClick={onOpenNewIdea}>
+          <PlusCircle size={18} />
+          <span>Propor ideia</span>
+        </button>
+      </header>
 
       {/* Barra de Filtros, Busca e Ordenação */}
       <div style={{
-        background: 'var(--bg-secondary)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: 'var(--radius-lg)',
-        padding: '1.25rem',
-        marginBottom: '1.75rem',
+        marginBottom: '2rem',
         display: 'flex',
         flexDirection: 'column',
         gap: '1rem'
@@ -247,7 +158,7 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
         }}>
           {/* Busca */}
           <form onSubmit={handleSearchSubmit} style={{ flex: '1 1 280px', position: 'relative' }}>
-            <Search size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+            <Search size={16} color="var(--ink-3)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
             <input
               type="text"
               className="form-input"
@@ -260,31 +171,20 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
 
           {/* Ordenação */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <span style={{ fontSize: '0.875rem', color: 'var(--ink-3)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
               <SlidersHorizontal size={14} /> Ordenar:
             </span>
             <select
               className="form-select"
-              style={{ width: 'auto', padding: '0.55rem 0.85rem', fontSize: '0.85rem' }}
+              style={{ width: 'auto', padding: '0.55rem 0.85rem', fontSize: '0.875rem' }}
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
             >
-              <option value="popular">🔥 Mais Apoiadas</option>
-              <option value="discussed">💬 Mais Discutidas</option>
-              <option value="recent">⏱ Mais Recentes</option>
+              <option value="popular">Mais apoiadas</option>
+              <option value="discussed">Mais discutidas</option>
+              <option value="recent">Mais recentes</option>
             </select>
           </div>
-
-          {/* Botão Nova Ideia */}
-          <button
-            type="button"
-            className="btn btn-gold"
-            onClick={onOpenNewIdea}
-            style={{ gap: '0.5rem' }}
-          >
-            <PlusCircle size={16} />
-            <span>Cadastrar Ideia</span>
-          </button>
         </div>
 
         {/* Linha 2: Chips de Tags para Filtros Rápidos */}
@@ -293,19 +193,13 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
           alignItems: 'center',
           gap: '0.5rem',
           flexWrap: 'wrap',
-          paddingTop: '0.25rem',
-          borderTop: '1px solid rgba(255, 255, 255, 0.04)'
         }}>
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontWeight: 600, textTransform: 'uppercase' }}>
-            Filtrar por Tag:
-          </span>
-
           <button
             type="button"
             className={`tag-chip ${selectedTag === '' ? 'active' : ''}`}
             onClick={() => setSelectedTag('')}
           >
-            Todas as Ideias
+            Todas
           </button>
 
           {quickTags.map((t) => (
@@ -323,24 +217,24 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
 
       {/* Grid de Cards de Ideias */}
       {loading ? (
-        <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-dim)' }}>
+        <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--ink-3)' }}>
           Carregando mural de ideias...
         </div>
       ) : ideas.length === 0 ? (
         <div style={{
           textAlign: 'center',
           padding: '4rem 2rem',
-          background: 'var(--bg-secondary)',
-          border: '1px dashed var(--border-bright)',
+          background: 'var(--surface)',
+          border: '1px dashed var(--rule-strong)',
           borderRadius: 'var(--radius-xl)'
         }}>
-          <Lightbulb size={40} color="var(--gold-light)" style={{ opacity: 0.6, marginBottom: '1rem' }} />
+          <Lightbulb size={40} color="var(--accent)" style={{ opacity: 0.6, marginBottom: '1rem' }} />
           <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>Nenhuma ideia encontrada</h3>
-          <p style={{ color: 'var(--text-dim)', maxWidth: '420px', margin: '0 auto 1.5rem', fontSize: '0.9rem' }}>
+          <p style={{ color: 'var(--ink-3)', maxWidth: '420px', margin: '0 auto 1.5rem', fontSize: '0.94rem' }}>
             Não encontramos ideias com os filtros selecionados. Seja o primeiro a propor uma nova iniciativa!
           </p>
-          <button type="button" className="btn btn-gold" onClick={onOpenNewIdea}>
-            <PlusCircle size={16} /> Cadastrar Nova Ideia
+          <button type="button" className="btn btn-primary" onClick={onOpenNewIdea}>
+            <PlusCircle size={16} /> Propor ideia
           </button>
         </div>
       ) : (
@@ -351,8 +245,8 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
         }}>
           {ideas.map((idea) => {
             const statusColor = 
-              idea.status === 'Validado' ? 'badge-emerald' :
-              idea.status === 'Parceria Aberta' ? 'badge-blue' : 'badge-amber';
+              idea.status === 'Validado' ? 'badge-accent' :
+              idea.status === 'Parceria Aberta' ? 'badge-signal' : 'badge-signal';
 
             return (
               <div
@@ -378,14 +272,14 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
                         height: 36,
                         borderRadius: '50%',
                         objectFit: 'cover',
-                        border: '1px solid var(--border-bright)'
+                        border: '1px solid var(--rule-strong)'
                       }}
                     />
                     <div>
-                      <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                      <div style={{ fontSize: '0.94rem', fontWeight: 700, color: 'var(--ink)' }}>
                         {idea.author.name}
                       </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--gold-light)' }}>
+                      <div style={{ fontSize: '0.8rem', color: 'var(--accent)' }}>
                         {idea.author.company}
                       </div>
                     </div>
@@ -411,8 +305,8 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
 
                 {/* Descrição Preview */}
                 <p style={{
-                  fontSize: '0.88rem',
-                  color: 'var(--text-muted)',
+                  fontSize: '0.94rem',
+                  color: 'var(--ink-2)',
                   lineHeight: 1.6,
                   marginBottom: '1.25rem',
                   flex: 1,
@@ -430,7 +324,7 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
                     <span
                       key={idx}
                       className="tag-chip"
-                      style={{ fontSize: '0.7rem', padding: '0.15rem 0.55rem' }}
+                      style={{ fontSize: '0.8rem', padding: '0.15rem 0.55rem' }}
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedTag(tag);
@@ -440,7 +334,7 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
                     </span>
                   ))}
                   {idea.tags.length > 3 && (
-                    <span style={{ fontSize: '0.7rem', color: 'var(--text-dim)', alignSelf: 'center' }}>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)', alignSelf: 'center' }}>
                       +{idea.tags.length - 3}
                     </span>
                   )}
@@ -452,14 +346,14 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   paddingTop: '0.85rem',
-                  borderTop: '1px solid var(--border-subtle)',
+                  borderTop: '1px solid var(--rule)',
                   marginTop: 'auto'
                 }}>
                   {/* Botão de Votar */}
                   <button
                     type="button"
                     onClick={(e) => handleVote(e, idea)}
-                    className={`btn btn-sm ${idea.has_voted ? 'btn-gold' : 'btn-secondary'}`}
+                    className={`btn btn-sm ${idea.has_voted ? 'btn-primary' : 'btn-secondary'}`}
                     style={{ gap: '0.4rem', padding: '0.4rem 0.75rem' }}
                   >
                     <Heart size={14} fill={idea.has_voted ? 'currentColor' : 'none'} />
@@ -471,12 +365,12 @@ export default function IdeasBoard({ onSelectIdea, onOpenNewIdea }) {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.4rem',
-                    fontSize: '0.82rem',
-                    color: 'var(--text-muted)'
+                    fontSize: '0.875rem',
+                    color: 'var(--ink-2)'
                   }}>
-                    <MessageSquare size={15} color="var(--blue-light)" />
+                    <MessageSquare size={15} color="var(--signal)" />
                     <span>{idea.comments_count} {idea.comments_count === 1 ? 'discussão' : 'discussões'}</span>
-                    <ArrowRight size={13} color="var(--text-dim)" style={{ marginLeft: '0.2rem' }} />
+                    <ArrowRight size={13} color="var(--ink-3)" style={{ marginLeft: '0.2rem' }} />
                   </div>
                 </div>
 

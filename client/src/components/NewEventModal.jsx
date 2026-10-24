@@ -119,17 +119,17 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
               width: 36,
               height: 36,
               borderRadius: 'var(--radius-sm)',
-              background: type === 'talk' ? 'var(--gold-bg-subtle)' : 'var(--blue-bg-subtle)',
-              border: `1px solid ${type === 'talk' ? 'var(--gold-border)' : 'var(--blue-border)'}`,
+              background: type === 'talk' ? 'var(--accent-soft)' : 'var(--signal-soft)',
+              border: `1px solid ${type === 'talk' ? 'var(--accent-line)' : 'var(--signal-line)'}`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center'
             }}>
-              {type === 'talk' ? <Mic size={18} color="var(--gold-light)" /> : <Users size={18} color="var(--blue-light)" />}
+              {type === 'talk' ? <Mic size={18} color="var(--accent)" /> : <Users size={18} color="var(--signal)" />}
             </div>
             <div>
               <h3 style={{ fontSize: '1.2rem' }}>Agendar Reunião ou Palestra Interna</h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>
+              <p style={{ fontSize: '0.875rem', color: 'var(--ink-3)' }}>
                 Conecte os empreendedores em uma sessão ao vivo de alinhamento ou aprendizado
               </p>
             </div>
@@ -156,11 +156,11 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
               gap: '0.6rem',
               padding: '0.85rem',
               borderRadius: 'var(--radius-md)',
-              border: `1px solid ${type === 'talk' ? 'var(--gold-primary)' : 'var(--border-subtle)'}`,
-              background: type === 'talk' ? 'rgba(212, 175, 55, 0.12)' : 'rgba(255, 255, 255, 0.02)',
-              color: type === 'talk' ? 'var(--gold-light)' : 'var(--text-muted)',
+              border: `1px solid ${type === 'talk' ? 'var(--accent)' : 'var(--rule)'}`,
+              background: type === 'talk' ? 'var(--accent-soft)' : 'var(--fill)',
+              color: type === 'talk' ? 'var(--accent)' : 'var(--ink-2)',
               fontWeight: 700,
-              fontSize: '0.9rem',
+              fontSize: '0.94rem',
               cursor: 'pointer',
               transition: 'var(--transition)'
             }}
@@ -179,11 +179,11 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
               gap: '0.6rem',
               padding: '0.85rem',
               borderRadius: 'var(--radius-md)',
-              border: `1px solid ${type === 'meeting' ? 'var(--blue-primary)' : 'var(--border-subtle)'}`,
-              background: type === 'meeting' ? 'rgba(59, 130, 246, 0.12)' : 'rgba(255, 255, 255, 0.02)',
-              color: type === 'meeting' ? 'var(--blue-light)' : 'var(--text-muted)',
+              border: `1px solid ${type === 'meeting' ? 'var(--signal)' : 'var(--rule)'}`,
+              background: type === 'meeting' ? 'var(--signal-soft)' : 'var(--fill)',
+              color: type === 'meeting' ? 'var(--signal)' : 'var(--ink-2)',
               fontWeight: 700,
-              fontSize: '0.9rem',
+              fontSize: '0.94rem',
               cursor: 'pointer',
               transition: 'var(--transition)'
             }}
@@ -199,12 +199,12 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
             
             {error && (
               <div style={{
-                background: 'rgba(244, 63, 94, 0.12)',
-                border: '1px solid rgba(244, 63, 94, 0.3)',
+                background: 'var(--danger-soft)',
+                border: '1px solid var(--danger-soft)',
                 borderRadius: 'var(--radius-md)',
                 padding: '0.75rem 1rem',
-                color: '#FDA4AF',
-                fontSize: '0.85rem',
+                color: 'var(--danger)',
+                fontSize: '0.875rem',
                 marginBottom: '1.25rem'
               }}>
                 {error}
@@ -228,19 +228,19 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
             {/* Campos Específicos para Palestra Interna */}
             {type === 'talk' && (
               <div style={{
-                background: 'rgba(212, 175, 55, 0.04)',
-                border: '1px solid var(--gold-border)',
+                background: 'var(--accent-soft)',
+                border: '1px solid var(--accent-line)',
                 borderRadius: 'var(--radius-md)',
                 padding: '1rem',
                 marginBottom: '1.25rem'
               }}>
-                <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '0.65rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <div style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--accent)', marginBottom: '0.65rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                   <Mic size={14} /> Dados do Palestrante / Apresentador
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                   <div>
-                    <label className="form-label" style={{ fontSize: '0.8rem' }}>Membro Palestrante</label>
+                    <label className="form-label" style={{ fontSize: '0.875rem' }}>Membro Palestrante</label>
                     <select
                       className="form-select"
                       value={speakerId}
@@ -255,7 +255,7 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
                   </div>
 
                   <div>
-                    <label className="form-label" style={{ fontSize: '0.8rem' }}>Área de Domínio / Foco</label>
+                    <label className="form-label" style={{ fontSize: '0.875rem' }}>Área de Domínio / Foco</label>
                     <input
                       type="text"
                       className="form-input"
@@ -273,7 +273,7 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
               <div className="form-group">
                 <label className="form-label">Data e Horário (Brasília)</label>
                 <div style={{ position: 'relative' }}>
-                  <Calendar size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+                  <Calendar size={16} color="var(--ink-3)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
                   <input
                     type="datetime-local"
                     className="form-input"
@@ -288,7 +288,7 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
               <div className="form-group">
                 <label className="form-label">Duração Prevista</label>
                 <div style={{ position: 'relative' }}>
-                  <Clock size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+                  <Clock size={16} color="var(--ink-3)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
                   <select
                     className="form-select"
                     style={{ paddingLeft: '2.5rem' }}
@@ -310,7 +310,7 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
             <div className="form-group">
               <label className="form-label">Link da Sala Virtual (Google Meet, Zoom, Teams)</label>
               <div style={{ position: 'relative' }}>
-                <Video size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+                <Video size={16} color="var(--ink-3)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
                 <input
                   type="url"
                   className="form-input"
@@ -342,7 +342,7 @@ export default function NewEventModal({ isOpen, onClose, onEventCreated }) {
             </button>
             <button
               type="submit"
-              className={type === 'talk' ? 'btn btn-gold' : 'btn btn-blue'}
+              className={type === 'talk' ? 'btn btn-primary' : 'btn btn-primary'}
               disabled={loading}
             >
               {loading ? 'Agendando...' : (type === 'talk' ? 'Confirmar Palestra Interna' : 'Agendar Reunião Estratégica')}

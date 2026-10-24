@@ -60,7 +60,7 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
     return (
       <div className="modal-overlay">
         <div className="modal-card" style={{ maxWidth: '550px', textAlign: 'center', padding: '3rem' }}>
-          <div style={{ color: 'var(--text-dim)' }}>Carregando perfil e acervo do empreendedor...</div>
+          <div style={{ color: 'var(--ink-3)' }}>Carregando perfil e acervo do empreendedor...</div>
         </div>
       </div>
     );
@@ -78,8 +78,8 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
         {/* Header do Perfil */}
         <div style={{
           padding: '2rem',
-          borderBottom: '1px solid var(--border-subtle)',
-          background: 'linear-gradient(135deg, rgba(20, 28, 45, 0.95) 0%, rgba(13, 19, 31, 0.98) 100%)',
+          borderBottom: '1px solid var(--rule)',
+          background: 'var(--surface)',
           position: 'relative'
         }}>
           <button
@@ -100,30 +100,30 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
                 height: 76,
                 borderRadius: '50%',
                 objectFit: 'cover',
-                border: '2.5px solid var(--gold-border)',
-                boxShadow: 'var(--glow-gold)'
+                border: '2.5px solid var(--accent-line)',
+                boxShadow: 'none'
               }}
             />
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.2rem' }}>
                 <h2 style={{ fontSize: '1.4rem' }}>{profile.name}</h2>
-                <span className="badge badge-gold">Empreendedor Membro</span>
+                <span className="badge badge-accent">Empreendedor Membro</span>
               </div>
-              <div style={{ fontSize: '0.88rem', color: 'var(--gold-light)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <div style={{ fontSize: '0.94rem', color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <Building size={14} />
                 <span>{profile.company}</span>
-                <span style={{ color: 'var(--text-dim)' }}>•</span>
-                <span style={{ color: 'var(--text-muted)' }}>{profile.role}</span>
+                <span style={{ color: 'var(--ink-3)' }}>•</span>
+                <span style={{ color: 'var(--ink-2)' }}>{profile.role}</span>
               </div>
             </div>
           </div>
 
           <p style={{
-            fontSize: '0.88rem',
-            color: 'var(--text-muted)',
+            fontSize: '0.94rem',
+            color: 'var(--ink-2)',
             lineHeight: 1.55,
             marginTop: '1.2rem',
-            background: 'rgba(255, 255, 255, 0.03)',
+            background: 'var(--fill)',
             padding: '0.85rem 1rem',
             borderRadius: 'var(--radius-md)'
           }}>
@@ -137,18 +137,18 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
             gap: '1.25rem',
             marginTop: '1.25rem',
             paddingTop: '1rem',
-            borderTop: '1px solid var(--border-subtle)',
-            fontSize: '0.82rem'
+            borderTop: '1px solid var(--rule)',
+            fontSize: '0.875rem'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--gold-light)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--accent)' }}>
               <BookOpen size={15} />
               <span><strong>{libraryData.created_books?.length || 0}</strong> Dossiês Criados</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--blue-light)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--signal)' }}>
               <FileText size={15} />
               <span><strong>{libraryData.contributed_items?.length || 0}</strong> Materiais e PDFs</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-dim)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--ink-3)' }}>
               <Lightbulb size={14} />
               <span>{profile.ideas_count || 0} Ideias Propostas</span>
             </div>
@@ -158,8 +158,8 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
         {/* Abas do Perfil */}
         <div style={{
           display: 'flex',
-          borderBottom: '1px solid var(--border-subtle)',
-          background: 'rgba(7, 10, 16, 0.5)',
+          borderBottom: '1px solid var(--rule)',
+          background: 'var(--surface)',
           padding: '0 1.5rem'
         }}>
           <button
@@ -169,10 +169,10 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
               padding: '0.85rem 1.25rem',
               background: 'transparent',
               border: 'none',
-              borderBottom: activeTab === 'books' ? '2px solid var(--gold-primary)' : '2px solid transparent',
-              color: activeTab === 'books' ? 'var(--gold-light)' : 'var(--text-muted)',
+              borderBottom: activeTab === 'books' ? '2px solid var(--accent)' : '2px solid transparent',
+              color: activeTab === 'books' ? 'var(--accent)' : 'var(--ink-2)',
               fontWeight: 600,
-              fontSize: '0.88rem',
+              fontSize: '0.94rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -190,10 +190,10 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
               padding: '0.85rem 1.25rem',
               background: 'transparent',
               border: 'none',
-              borderBottom: activeTab === 'materials' ? '2px solid var(--gold-primary)' : '2px solid transparent',
-              color: activeTab === 'materials' ? 'var(--gold-light)' : 'var(--text-muted)',
+              borderBottom: activeTab === 'materials' ? '2px solid var(--accent)' : '2px solid transparent',
+              color: activeTab === 'materials' ? 'var(--accent)' : 'var(--ink-2)',
               fontWeight: 600,
-              fontSize: '0.88rem',
+              fontSize: '0.94rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -209,7 +209,7 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
         <div style={{ padding: '1.75rem', maxHeight: '420px', overflowY: 'auto' }}>
           {activeTab === 'books' ? (
             libraryData.created_books?.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: 'var(--text-dim)' }}>
+              <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: 'var(--ink-3)' }}>
                 Este membro ainda não iniciou nenhum dossiê na biblioteca.
               </div>
             ) : (
@@ -222,8 +222,8 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
                       if (onSelectBook) onSelectBook(b.id);
                     }}
                     style={{
-                      background: 'rgba(255, 255, 255, 0.02)',
-                      border: '1px solid var(--border-subtle)',
+                      background: 'var(--fill)',
+                      border: '1px solid var(--rule)',
                       borderRadius: 'var(--radius-lg)',
                       padding: '1.25rem',
                       display: 'flex',
@@ -233,32 +233,32 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
                       transition: 'var(--transition)'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'var(--gold-border)';
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
+                      e.currentTarget.style.borderColor = 'var(--accent-line)';
+                      e.currentTarget.style.background = 'var(--fill)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = 'var(--border-subtle)';
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+                      e.currentTarget.style.borderColor = 'var(--rule)';
+                      e.currentTarget.style.background = 'var(--fill)';
                     }}
                   >
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.3rem' }}>
-                        <span className="badge badge-gold" style={{ fontSize: '0.68rem' }}>
+                        <span className="badge badge-accent" style={{ fontSize: '0.8rem' }}>
                           {b.category}
                         </span>
-                        <span style={{ fontSize: '0.78rem', color: 'var(--text-dim)' }}>
+                        <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                           {b.items_count || 0} materiais • {b.likes_count || 0} apoios
                         </span>
                       </div>
-                      <h4 style={{ fontSize: '1.05rem', color: 'var(--text-main)', marginBottom: '0.25rem' }}>
+                      <h4 style={{ fontSize: '1.05rem', color: 'var(--ink)', marginBottom: '0.25rem' }}>
                         {b.title}
                       </h4>
-                      <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: 0, lineClamp: 2 }}>
+                      <p style={{ fontSize: '0.875rem', color: 'var(--ink-2)', margin: 0, lineClamp: 2 }}>
                         {b.description}
                       </p>
                     </div>
 
-                    <div style={{ color: 'var(--gold-light)', paddingLeft: '1rem' }}>
+                    <div style={{ color: 'var(--accent)', paddingLeft: '1rem' }}>
                       <ArrowRight size={18} />
                     </div>
                   </div>
@@ -267,7 +267,7 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
             )
           ) : (
             libraryData.contributed_items?.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: 'var(--text-dim)' }}>
+              <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: 'var(--ink-3)' }}>
                 Este membro ainda não fez upload de materiais no acervo.
               </div>
             ) : (
@@ -276,8 +276,8 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
                   <div
                     key={item.id}
                     style={{
-                      background: 'rgba(255, 255, 255, 0.02)',
-                      border: '1px solid var(--border-subtle)',
+                      background: 'var(--fill)',
+                      border: '1px solid var(--rule)',
                       borderRadius: 'var(--radius-md)',
                       padding: '1rem 1.25rem',
                       display: 'flex',
@@ -291,25 +291,25 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
                         width: 34,
                         height: 34,
                         borderRadius: 'var(--radius-sm)',
-                        background: 'rgba(255, 255, 255, 0.05)',
+                        background: 'var(--fill)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
                       }}>
                         {item.file_type === 'pdf' ? (
-                          <FileText size={17} color="#F43F5E" />
+                          <FileText size={17} color="var(--danger)" />
                         ) : item.file_type === 'video' ? (
-                          <Video size={17} color="#3B82F6" />
+                          <Video size={17} color="var(--signal)" />
                         ) : (
-                          <Link2 size={17} color="var(--gold-light)" />
+                          <Link2 size={17} color="var(--accent)" />
                         )}
                       </div>
                       <div>
-                        <h4 style={{ fontSize: '0.92rem', color: 'var(--text-main)' }}>
+                        <h4 style={{ fontSize: '1.0rem', color: 'var(--ink)' }}>
                           {item.title}
                         </h4>
-                        <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
-                          No dossiê: <strong style={{ color: 'var(--gold-light)' }}>{item.book_title}</strong>
+                        <div style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
+                          No dossiê: <strong style={{ color: 'var(--accent)' }}>{item.book_title}</strong>
                         </div>
                       </div>
                     </div>
@@ -329,7 +329,7 @@ export default function MemberProfileModal({ userId, onClose, onSelectBook }) {
                         href={item.file_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn-outline-gold btn-sm"
+                        className="btn btn-outline btn-sm"
                         title="Download direto"
                       >
                         <Download size={14} />

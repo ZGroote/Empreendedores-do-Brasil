@@ -105,44 +105,19 @@ export default function EventsCalendar({ onOpenNewEvent }) {
 
   return (
     <div>
-      {/* Banner Superior */}
-      <div style={{
-        background: 'linear-gradient(135deg, rgba(16, 24, 40, 0.8) 0%, rgba(13, 19, 31, 0.9) 100%)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: 'var(--radius-xl)',
-        padding: '2.25rem 2rem',
-        marginBottom: '2rem',
-        boxShadow: 'var(--shadow-md)',
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: '1.5rem',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
-        <div style={{ maxWidth: '680px' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
-            <span className="badge badge-gold">Agenda & Conexão ao Vivo</span>
-          </div>
-          <h1 style={{ fontSize: 'clamp(1.6rem, 5vw, 2.1rem)', lineHeight: 1.2 }}>
-            Reuniões & Palestras <span className="text-gradient-gold">Internas</span>
-          </h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '1rem', marginTop: '0.5rem' }}>
-            Aprenda diretamente com a experiência de outros fundadores nas palestras internas (talks) e participe das decisões estratégicas nas reuniões de alinhamento.
+      <header className="page-header">
+        <div>
+          <span className="badge badge-accent">Agenda</span>
+          <h1>Palestras e <span className="em-accent">reuniões</span></h1>
+          <p>
+            Palestras dadas pelos próprios membros e os encontros do grupo. Confirme presença para entrar na lista.
           </p>
         </div>
-
-        <button
-          type="button"
-          className="btn btn-gold btn-lg"
-          onClick={onOpenNewEvent}
-          style={{ gap: '0.6rem' }}
-        >
+        <button type="button" className="btn btn-primary btn-lg" onClick={onOpenNewEvent}>
           <PlusCircle size={18} />
-          <span>Agendar Reunião ou Palestra</span>
+          <span>Agendar</span>
         </button>
-      </div>
+      </header>
 
       {/* Abas de Filtros de Tipos de Eventos */}
       <div style={{
@@ -156,58 +131,58 @@ export default function EventsCalendar({ onOpenNewEvent }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
           <button
             type="button"
-            className={`btn btn-sm ${filterType === 'all' ? 'btn-gold' : 'btn-secondary'}`}
+            className={`btn btn-sm ${filterType === 'all' ? 'btn-primary' : 'btn-secondary'}`}
             onClick={() => setFilterType('all')}
             style={{ borderRadius: 'var(--radius-full)' }}
           >
-            Todos os Eventos ({events.length})
+            Todos ({events.length})
           </button>
 
           <button
             type="button"
-            className={`btn btn-sm ${filterType === 'talk' ? 'btn-gold' : 'btn-secondary'}`}
+            className={`btn btn-sm ${filterType === 'talk' ? 'btn-primary' : 'btn-secondary'}`}
             onClick={() => setFilterType('talk')}
             style={{ borderRadius: 'var(--radius-full)', gap: '0.4rem' }}
           >
             <Mic size={14} />
-            <span>Palestras Internas</span>
+            <span>Palestras</span>
           </button>
 
           <button
             type="button"
-            className={`btn btn-sm ${filterType === 'meeting' ? 'btn-gold' : 'btn-secondary'}`}
+            className={`btn btn-sm ${filterType === 'meeting' ? 'btn-primary' : 'btn-secondary'}`}
             onClick={() => setFilterType('meeting')}
             style={{ borderRadius: 'var(--radius-full)', gap: '0.4rem' }}
           >
             <Users size={14} />
-            <span>Reuniões Estratégicas</span>
+            <span>Reuniões</span>
           </button>
         </div>
 
-        <span style={{ fontSize: '0.82rem', color: 'var(--text-dim)' }}>
-          Horários sincronizados no fuso oficial de Brasília (BRT)
+        <span style={{ fontSize: '0.875rem', color: 'var(--ink-3)' }}>
+          Horário de Brasília
         </span>
       </div>
 
       {/* Lista de Eventos */}
       {loading ? (
-        <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-dim)' }}>
+        <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--ink-3)' }}>
           Carregando cronograma de reuniões e palestras...
         </div>
       ) : events.length === 0 ? (
         <div style={{
           textAlign: 'center',
           padding: '4rem 2rem',
-          background: 'var(--bg-secondary)',
-          border: '1px dashed var(--border-bright)',
+          background: 'var(--surface)',
+          border: '1px dashed var(--rule-strong)',
           borderRadius: 'var(--radius-xl)'
         }}>
-          <CalendarIcon size={42} color="var(--gold-light)" style={{ opacity: 0.6, marginBottom: '1rem' }} />
+          <CalendarIcon size={42} color="var(--accent)" style={{ opacity: 0.6, marginBottom: '1rem' }} />
           <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>Nenhum evento agendado no filtro</h3>
-          <p style={{ color: 'var(--text-dim)', maxWidth: '420px', margin: '0 auto 1.5rem', fontSize: '0.9rem' }}>
+          <p style={{ color: 'var(--ink-3)', maxWidth: '420px', margin: '0 auto 1.5rem', fontSize: '0.94rem' }}>
             Nenhuma reunião ou palestra encontrada nesta categoria. Agende a primeira para mobilizar o grupo!
           </p>
-          <button type="button" className="btn btn-gold" onClick={onOpenNewEvent}>
+          <button type="button" className="btn btn-primary" onClick={onOpenNewEvent}>
             <PlusCircle size={16} /> Agendar Agora
           </button>
         </div>
@@ -224,18 +199,18 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                 style={{
                   overflow: 'hidden',
                   position: 'relative',
-                  borderLeft: isTalk ? '4px solid var(--gold-primary)' : '4px solid var(--blue-primary)'
+                  borderLeft: isTalk ? '4px solid var(--accent)' : '4px solid var(--signal)'
                 }}
               >
                 {/* Bloco de Data e Horário em Destaque */}
                 <div className="event-date">
-                  <div style={{ fontSize: '0.8rem', fontWeight: 700, color: isTalk ? 'var(--gold-light)' : 'var(--blue-light)', textTransform: 'uppercase' }}>
+                  <div style={{ fontSize: '0.875rem', fontWeight: 700, color: isTalk ? 'var(--accent)' : 'var(--signal)', textTransform: 'uppercase' }}>
                     {month}
                   </div>
-                  <div style={{ fontSize: '2.2rem', fontWeight: 800, lineHeight: 1.1, color: 'var(--text-main)' }}>
+                  <div style={{ fontSize: '2.2rem', fontWeight: 700, lineHeight: 1.1, color: 'var(--ink)' }}>
                     {day}
                   </div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-muted)', marginTop: '0.3rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--ink-2)', marginTop: '0.3rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                     <Clock size={12} />
                     {time}
                   </div>
@@ -246,16 +221,16 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                   <div>
                     {/* Header: Tipo de Evento + Duração */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.65rem', flexWrap: 'wrap' }}>
-                      <span className={`badge ${isTalk ? 'badge-gold' : 'badge-blue'}`}>
+                      <span className={`badge ${isTalk ? 'badge-accent' : 'badge-signal'}`}>
                         {isTalk ? <Mic size={12} /> : <Users size={12} />}
-                        {isTalk ? 'Palestra Interna (Talk)' : 'Reunião Estratégica'}
+                        {isTalk ? 'Palestra' : 'Reunião'}
                       </span>
 
-                      <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                         <Clock size={12} /> {eventItem.duration_minutes} minutos
                       </span>
 
-                      <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                         • {weekday}
                       </span>
                     </div>
@@ -266,7 +241,7 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                     </h3>
 
                     {/* Descrição */}
-                    <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '1rem' }}>
+                    <p style={{ fontSize: '0.94rem', color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: '1rem' }}>
                       {eventItem.description}
                     </p>
 
@@ -276,8 +251,8 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '0.75rem',
-                        background: 'rgba(212, 175, 55, 0.06)',
-                        border: '1px solid var(--gold-border)',
+                        background: 'var(--accent-soft)',
+                        border: '1px solid var(--accent-line)',
                         borderRadius: 'var(--radius-md)',
                         padding: '0.6rem 1rem',
                         marginBottom: '0.5rem'
@@ -288,10 +263,10 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                           style={{ width: 34, height: 34, borderRadius: '50%', objectFit: 'cover' }}
                         />
                         <div>
-                          <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                          <div style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--ink)' }}>
                             Palestrante: {eventItem.speaker.name}
                           </div>
-                          <div style={{ fontSize: '0.75rem', color: 'var(--gold-light)' }}>
+                          <div style={{ fontSize: '0.8rem', color: 'var(--accent)' }}>
                             {eventItem.speaker.topic || `${eventItem.speaker.company}`}
                           </div>
                         </div>
@@ -307,7 +282,7 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                     justifyContent: 'space-between',
                     gap: '1rem',
                     paddingTop: '0.85rem',
-                    borderTop: '1px solid var(--border-subtle)'
+                    borderTop: '1px solid var(--rule)'
                   }}>
                     {/* Link da Reunião / Sala Virtual */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
@@ -317,21 +292,21 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="btn btn-secondary btn-sm"
-                          style={{ gap: '0.4rem', color: 'var(--blue-light)' }}
+                          style={{ gap: '0.4rem', color: 'var(--signal)' }}
                         >
                           <Video size={14} />
-                          <span>Acessar Link da Sala</span>
+                          <span>Link da sala</span>
                           <ExternalLink size={12} />
                         </a>
                       ) : (
-                        <span style={{ fontSize: '0.8rem', color: 'var(--text-dim)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                        <span style={{ fontSize: '0.875rem', color: 'var(--ink-3)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                           <Video size={14} /> Link será disponibilizado aos confirmados
                         </span>
                       )}
                     </div>
 
                     {/* Presenças e Botão de RSVP */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem 1rem', flexWrap: 'wrap' }}>
                       {/* Avatar Stack de Membros Confirmados */}
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                         <div style={{ display: 'flex', marginLeft: '0.5rem' }}>
@@ -345,14 +320,14 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                                 width: 26,
                                 height: 26,
                                 borderRadius: '50%',
-                                border: '2px solid var(--bg-secondary)',
+                                border: '2px solid var(--surface)',
                                 marginLeft: i === 0 ? 0 : -8,
                                 objectFit: 'cover'
                               }}
                             />
                           ))}
                         </div>
-                        <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                        <span style={{ fontSize: '0.875rem', color: 'var(--ink-2)' }}>
                           <strong>{eventItem.attendees_count}</strong> {eventItem.attendees_count === 1 ? 'membro confirmado' : 'membros confirmados'}
                         </span>
                       </div>
@@ -361,7 +336,7 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                       <button
                         type="button"
                         onClick={(e) => handleToggleRsvp(e, eventItem)}
-                        className={`btn btn-sm ${eventItem.has_rsvp ? 'badge-emerald' : 'btn-gold'}`}
+                        className={`btn btn-sm ${eventItem.has_rsvp ? 'badge-accent' : 'btn-primary'}`}
                         style={{
                           padding: '0.55rem 1rem',
                           fontWeight: 700,
@@ -371,11 +346,11 @@ export default function EventsCalendar({ onOpenNewEvent }) {
                         {eventItem.has_rsvp ? (
                           <>
                             <CheckCircle2 size={15} />
-                            <span>Presença Confirmada</span>
+                            <span>Presença confirmada</span>
                           </>
                         ) : (
                           <>
-                            <span>Vou Participar</span>
+                            <span>Confirmar presença</span>
                           </>
                         )}
                       </button>

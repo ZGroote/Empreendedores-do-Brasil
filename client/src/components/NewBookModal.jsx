@@ -35,10 +35,10 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
   ];
 
   const colorOptions = [
-    { id: 'gold', name: 'Dourado Champanhe', color: '#D4AF37' },
-    { id: 'blue', name: 'Azul Safira', color: '#3B82F6' },
-    { id: 'purple', name: 'Roxo Estratégico', color: '#A855F7' },
-    { id: 'emerald', name: 'Verde Esmeralda', color: '#10B981' }
+    { id: 'gold', name: 'Ocre', color: 'var(--book-gold)' },
+    { id: 'blue', name: 'Índigo', color: 'var(--book-blue)' },
+    { id: 'purple', name: 'Ameixa', color: 'var(--book-purple)' },
+    { id: 'emerald', name: 'Verde', color: 'var(--book-emerald)' }
   ];
 
   function handleAddTag(e) {
@@ -116,17 +116,17 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
               width: 36,
               height: 36,
               borderRadius: 'var(--radius-md)',
-              background: 'var(--gold-bg-subtle)',
-              border: '1px solid var(--gold-border)',
+              background: 'var(--accent-soft)',
+              border: '1px solid var(--accent-line)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center'
             }}>
-              <BookOpen size={18} color="var(--gold-light)" />
+              <BookOpen size={18} color="var(--accent)" />
             </div>
             <div>
               <h2 style={{ fontSize: '1.25rem', lineHeight: 1.2 }}>Criar Novo Dossiê / Livro</h2>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
+              <div style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                 Inaugure uma nova coletânea de conhecimento para a rede
               </div>
             </div>
@@ -140,12 +140,12 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
           <div className="modal-body">
             {error && (
               <div style={{
-                background: 'var(--rose-bg)',
-                border: '1px solid var(--rose-primary)',
-                color: '#FB7185',
+                background: 'var(--danger-soft)',
+                border: '1px solid var(--danger)',
+                color: 'var(--danger)',
                 padding: '0.75rem 1rem',
                 borderRadius: 'var(--radius-md)',
-                fontSize: '0.85rem',
+                fontSize: '0.875rem',
                 marginBottom: '1.25rem'
               }}>
                 {error}
@@ -204,8 +204,8 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
                     style={{
                       flex: 1,
                       padding: '0.6rem 0.5rem',
-                      background: colorGradient === opt.id ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.02)',
-                      border: colorGradient === opt.id ? `2px solid ${opt.color}` : '1px solid var(--border-subtle)',
+                      background: colorGradient === opt.id ? 'var(--fill-strong)' : 'var(--fill)',
+                      border: colorGradient === opt.id ? `2px solid ${opt.color}` : '1px solid var(--rule)',
                       borderRadius: 'var(--radius-md)',
                       display: 'flex',
                       flexDirection: 'column',
@@ -216,7 +216,7 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
                     }}
                   >
                     <div style={{ width: 18, height: 18, borderRadius: '50%', background: opt.color }} />
-                    <span style={{ fontSize: '0.72rem', color: colorGradient === opt.id ? 'var(--text-main)' : 'var(--text-dim)' }}>
+                    <span style={{ fontSize: '0.8rem', color: colorGradient === opt.id ? 'var(--ink)' : 'var(--ink-3)' }}>
                       {opt.name}
                     </span>
                   </button>
@@ -251,11 +251,11 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
                     <span
                       key={t}
                       style={{
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid var(--border-subtle)',
+                        background: 'var(--fill)',
+                        border: '1px solid var(--rule)',
                         borderRadius: 'var(--radius-full)',
                         padding: '0.2rem 0.65rem',
-                        fontSize: '0.78rem',
+                        fontSize: '0.8rem',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '0.35rem'
@@ -265,7 +265,7 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
                       <button
                         type="button"
                         onClick={() => handleRemoveTag(t)}
-                        style={{ background: 'transparent', border: 'none', color: 'var(--text-dim)', cursor: 'pointer' }}
+                        style={{ background: 'transparent', border: 'none', color: 'var(--ink-3)', cursor: 'pointer' }}
                       >
                         ×
                       </button>
@@ -277,8 +277,8 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
 
             {/* Toggle Colaborativo */}
             <div style={{
-              background: 'rgba(255, 255, 255, 0.02)',
-              border: '1px solid var(--border-subtle)',
+              background: 'var(--fill)',
+              border: '1px solid var(--rule)',
               borderRadius: 'var(--radius-md)',
               padding: '0.85rem 1rem',
               display: 'flex',
@@ -289,12 +289,12 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
               onClick={() => setIsCollaborative(!isCollaborative)}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <Users size={20} color="var(--emerald-primary)" />
+                <Users size={20} color="var(--accent)" />
                 <div>
-                  <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-main)' }}>
+                  <div style={{ fontSize: '0.94rem', fontWeight: 600, color: 'var(--ink)' }}>
                     Permitir que outros membros acrescentem materiais
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                     Dossiê colaborativo: qualquer empreendedor verificado pode anexar PDFs e vídeos.
                   </div>
                 </div>
@@ -304,7 +304,7 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
                 type="checkbox"
                 checked={isCollaborative}
                 onChange={(e) => setIsCollaborative(e.target.checked)}
-                style={{ width: 18, height: 18, accentColor: 'var(--gold-primary)', cursor: 'pointer' }}
+                style={{ width: 18, height: 18, accentColor: 'var(--accent)', cursor: 'pointer' }}
               />
             </div>
           </div>
@@ -319,7 +319,7 @@ export default function NewBookModal({ isOpen, onClose, onBookCreated }) {
             </button>
             <button
               type="submit"
-              className="btn btn-gold"
+              className="btn btn-primary"
               disabled={submitting}
             >
               {submitting ? 'Criando Dossiê...' : 'Publicar Dossiê na Biblioteca'}

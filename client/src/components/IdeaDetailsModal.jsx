@@ -135,12 +135,12 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
         {/* Header do Modal */}
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <span className="badge badge-gold" style={{ fontSize: '0.75rem' }}>
+            <span className="badge badge-accent" style={{ fontSize: '0.8rem' }}>
               {idea ? idea.status : 'Carregando...'}
             </span>
             {idea && (
-              <span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>
-                Categoria: <strong style={{ color: 'var(--text-muted)' }}>{idea.category}</strong>
+              <span style={{ fontSize: '0.875rem', color: 'var(--ink-3)' }}>
+                Categoria: <strong style={{ color: 'var(--ink-2)' }}>{idea.category}</strong>
               </span>
             )}
           </div>
@@ -152,11 +152,11 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
         {/* Corpo do Modal */}
         <div className="modal-body" style={{ padding: '1.75rem' }}>
           {loading ? (
-            <div style={{ textAlign: 'center', padding: '3rem 0', color: 'var(--text-dim)' }}>
+            <div style={{ textAlign: 'center', padding: '3rem 0', color: 'var(--ink-3)' }}>
               Carregando detalhes e discussões da ideia...
             </div>
           ) : !idea ? (
-            <div style={{ textAlign: 'center', padding: '3rem 0', color: 'var(--rose-primary)' }}>
+            <div style={{ textAlign: 'center', padding: '3rem 0', color: 'var(--danger)' }}>
               Ideia não encontrada.
             </div>
           ) : (
@@ -172,14 +172,14 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
                       height: 48,
                       borderRadius: '50%',
                       objectFit: 'cover',
-                      border: '2px solid var(--gold-border)'
+                      border: '2px solid var(--accent-line)'
                     }}
                   />
                   <div>
-                    <div style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-main)' }}>
+                    <div style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--ink)' }}>
                       {idea.author.name}
                     </div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--gold-light)' }}>
+                    <div style={{ fontSize: '0.875rem', color: 'var(--accent)' }}>
                       {idea.author.role} @ {idea.author.company}
                     </div>
                   </div>
@@ -191,7 +191,7 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
                   onClick={handleShare}
                   style={{ gap: '0.4rem' }}
                 >
-                  {copiedLink ? <CheckCircle2 size={15} color="var(--emerald-primary)" /> : <Share2 size={15} />}
+                  {copiedLink ? <CheckCircle2 size={15} color="var(--accent)" /> : <Share2 size={15} />}
                   <span>{copiedLink ? 'Link Copiado!' : 'Compartilhar'}</span>
                 </button>
               </div>
@@ -203,11 +203,11 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
 
               {/* Descrição Completa */}
               <div style={{
-                background: 'rgba(11, 16, 26, 0.4)',
-                border: '1px solid var(--border-subtle)',
+                background: 'var(--surface)',
+                border: '1px solid var(--rule)',
                 borderRadius: 'var(--radius-md)',
                 padding: '1.25rem',
-                fontSize: '0.95rem',
+                fontSize: '1.0rem',
                 lineHeight: 1.7,
                 color: '#E2E8F0',
                 marginBottom: '1.25rem',
@@ -219,7 +219,7 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
               {/* Tags da Ideia */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.75rem' }}>
                 {idea.tags.map((tag, idx) => (
-                  <span key={idx} className="tag-chip" style={{ fontSize: '0.75rem' }}>
+                  <span key={idx} className="tag-chip" style={{ fontSize: '0.8rem' }}>
                     #{tag}
                   </span>
                 ))}
@@ -231,28 +231,28 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 padding: '0.85rem 1.25rem',
-                background: 'rgba(212, 175, 55, 0.05)',
-                border: '1px solid var(--gold-border)',
+                background: 'var(--accent-soft)',
+                border: '1px solid var(--accent-line)',
                 borderRadius: 'var(--radius-md)',
                 marginBottom: '2rem'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <button
                     type="button"
-                    className={`btn btn-sm ${idea.has_voted ? 'btn-gold' : 'btn-outline-gold'}`}
+                    className={`btn btn-sm ${idea.has_voted ? 'btn-primary' : 'btn-outline'}`}
                     onClick={handleVote}
                     style={{ gap: '0.4rem' }}
                   >
                     <Heart size={16} fill={idea.has_voted ? 'currentColor' : 'none'} />
                     <span>{idea.has_voted ? 'Você Apoiou' : 'Apoiar esta Ideia'}</span>
                   </button>
-                  <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginLeft: '0.3rem' }}>
+                  <span style={{ fontSize: '0.875rem', color: 'var(--ink-2)', marginLeft: '0.3rem' }}>
                     <strong>{idea.votes_count}</strong> {idea.votes_count === 1 ? 'voto de apoio' : 'votos de apoio'}
                   </span>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                  <MessageSquare size={16} color="var(--blue-light)" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.875rem', color: 'var(--ink-2)' }}>
+                  <MessageSquare size={16} color="var(--signal)" />
                   <span><strong>{idea.comments.length}</strong> {idea.comments.length === 1 ? 'contribuição' : 'contribuições'}</span>
                 </div>
               </div>
@@ -262,7 +262,7 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
                   ======================================= */}
               <div>
                 <h3 style={{ fontSize: '1.15rem', display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
-                  <MessageSquare size={18} color="var(--gold-light)" />
+                  <MessageSquare size={18} color="var(--accent)" />
                   <span>Discussão Estratégica entre Membros</span>
                 </h3>
 
@@ -277,7 +277,7 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
                         height: 38,
                         borderRadius: '50%',
                         objectFit: 'cover',
-                        border: '1px solid var(--border-bright)',
+                        border: '1px solid var(--rule-strong)',
                         marginTop: '0.2rem'
                       }}
                     />
@@ -293,7 +293,7 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
                       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <button
                           type="submit"
-                          className="btn btn-gold btn-sm"
+                          className="btn btn-primary btn-sm"
                           disabled={submittingComment || !commentText.trim()}
                         >
                           <Send size={14} />
@@ -310,10 +310,10 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
                     <div style={{
                       textAlign: 'center',
                       padding: '2rem',
-                      background: 'rgba(255, 255, 255, 0.02)',
+                      background: 'var(--fill)',
                       borderRadius: 'var(--radius-md)',
-                      color: 'var(--text-dim)',
-                      fontSize: '0.9rem'
+                      color: 'var(--ink-3)',
+                      fontSize: '0.94rem'
                     }}>
                       Ainda não há comentários nesta ideia. Seja o primeiro a contribuir com sua visão!
                     </div>
@@ -322,8 +322,8 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
                       <div
                         key={comment.id}
                         style={{
-                          background: 'rgba(16, 24, 40, 0.5)',
-                          border: '1px solid var(--border-subtle)',
+                          background: 'var(--surface)',
+                          border: '1px solid var(--rule)',
                           borderRadius: 'var(--radius-md)',
                           padding: '1rem 1.15rem',
                           transition: 'var(--transition)'
@@ -337,20 +337,20 @@ export default function IdeaDetailsModal({ ideaId, onClose, onIdeaUpdated }) {
                               style={{ width: 32, height: 32, borderRadius: '50%', objectFit: 'cover' }}
                             />
                             <div>
-                              <span style={{ fontWeight: 600, fontSize: '0.88rem', color: 'var(--text-main)' }}>
+                              <span style={{ fontWeight: 600, fontSize: '0.94rem', color: 'var(--ink)' }}>
                                 {comment.user.name}
                               </span>
-                              <span style={{ fontSize: '0.75rem', color: 'var(--gold-light)', marginLeft: '0.5rem' }}>
+                              <span style={{ fontSize: '0.8rem', color: 'var(--accent)', marginLeft: '0.5rem' }}>
                                 {comment.user.role} @ {comment.user.company}
                               </span>
                             </div>
                           </div>
-                          <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>
+                          <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)' }}>
                             {new Date(comment.created_at).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
                           </span>
                         </div>
 
-                        <p style={{ fontSize: '0.88rem', color: '#CBD5E1', lineHeight: 1.6, marginLeft: '2.65rem' }}>
+                        <p style={{ fontSize: '0.94rem', color: '#CBD5E1', lineHeight: 1.6, marginLeft: '2.65rem' }}>
                           {comment.content}
                         </p>
                       </div>
